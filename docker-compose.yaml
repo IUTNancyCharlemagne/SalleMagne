@@ -1,0 +1,42 @@
+version: "3.5"
+networks:
+  salle.net:
+    driver: bridge
+
+services:
+  db:
+    image: mariadb:10.4
+    container_name: mariadb
+    networks:
+      - salle.net
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-sallemagne}
+      MYSQL_USER: ${MYSQL_USER:-salle}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
+    volumes:
+      - ./api/sql/init:/docker-entrypoint-initdb.d
+    ports:
+      - "32497:3306"
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    networks:
+      - salle.net
+    ports:
+      - "32496:8080"
+
+#  api:
+#    image: 'node:alpine'
+#    command: sh -c "npm i && npm run dev"
+#    volumes:
+#      - ./api:/app
+#    working_dir: /app
+#    networks:
+#      - salle.net
+#    environment:
+#      - NODE_ENV=development
+#      - PORT=3000
+#    ports:
+#      - '32495:3000'
