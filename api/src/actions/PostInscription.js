@@ -1,10 +1,8 @@
 import {db} from "../knex.js";
 import {hash, genSalt, compare} from "bcrypt";
-import {encode} from "../services/JWTService.js";
 
 export async function PostInscription(req, res) {
-    const headers = req.headers
-    const auth = headers["Authorization"]
+    const auth = req.get("Authorization")
     const b64 = auth.split(" ")[1]
     const text = atob(b64)
     const email = text.split(":")[0]
@@ -25,7 +23,7 @@ export async function PostInscription(req, res) {
     try {
         const imp = await db("Etudiant").insert({email: email, mdp: passwdhash, prenom: prenom, nom: nom})
         res.status(201)
-        res.json({status: 0, message: "ligne insérée"})
+        res.json({status: 0, message: "Inscription Okay"})
     } catch (e) {
         res.json({error: e})
     }
