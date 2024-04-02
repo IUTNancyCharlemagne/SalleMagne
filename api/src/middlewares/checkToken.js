@@ -1,18 +1,16 @@
-import {verify} from "../services/JWTService.js";
+import {decode, verify} from "../services/JWTService.js";
 
 export default (req, res, next) => {
-    const headers = req.headers
-    const auth = headers["Authorization"]
-    const b64 = auth.split(" ")[1]
-    const token = atob(b64)
-
-    verify(token, (err, decoded) => {
-        if(err){
-            res.status(401)
-            res.json({error: "Token invalide"})
-        } else {
-            req.id = decoded.id
-            next()
-        }
-    })
-};
+    const auth = req.get("Authorization")
+    const token = auth.split(" ")[1]
+    console.log(1)
+    const ver = verify(token)
+    if (ver) {
+        const decoded = decode(token)
+        req.id = decoded.id
+        next()
+    } else {
+        res.status(401)
+        res.json({error: "Token invalide"})
+    }
+}

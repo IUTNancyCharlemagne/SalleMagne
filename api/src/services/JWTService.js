@@ -9,6 +9,7 @@ export function encode(payload, expiresIn = '1h') {
 export function decode(token) {
     try {
         return jwt.verify(token, secretKey);
+
     } catch (error) {
         // Si le token est invalide, une erreur est levée
         return null;
