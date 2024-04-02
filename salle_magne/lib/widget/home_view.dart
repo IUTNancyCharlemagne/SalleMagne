@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:salle_magne/styles.dart';
+import 'package:salle_magne/widget/calender_view.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -17,14 +18,18 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Titre'),
-        backgroundColor: Colors.blue,
+        title: const Text(
+          'Salle\'magne',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: backgroundAppbarColor,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MaterialButton(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
               color: buttonPickFromGalleryColor,
               onPressed: _pickImageFromGallery,
               child: const Text(
@@ -36,8 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+            const SizedBox(height: 12),
             MaterialButton(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
               color: buttonPickFromCameraColor,
               onPressed: _pickImageFromCamera,
               child: const Text(
@@ -53,6 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
             _selectedImage != null
                 ? Image.file(_selectedImage!)
                 : const Text('Pas d\'image sélectionnée'),
+            MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CalendarView()),
+                );
+              },
+              child: const Text('Voir calendrier'),
+            ),
           ],
         ),
       ),
