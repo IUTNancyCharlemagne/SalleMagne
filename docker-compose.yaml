@@ -21,6 +21,7 @@ services:
 
   adminer:
     image: adminer
+    command: php -S 0.0.0.0:8080 -t /var/www/html
     container_name: adminer
     networks:
       - salle.net
