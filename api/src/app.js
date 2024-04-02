@@ -10,6 +10,7 @@ const httpServer = createServer(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static('public'))
 app.get("/", (req, res) => res.send("Hello depuis la racine"))
 app.use("/api", apiRouter)
 

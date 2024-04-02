@@ -19,11 +19,11 @@ CREATE TABLE `Etudiant` (
 DROP TABLE IF EXISTS `Favoris`;
 CREATE TABLE `Favoris` (
   `id_etudiant` int(11) DEFAULT NULL,
-  `salle` varchar(255) DEFAULT NULL,
+  `salle` int(11) DEFAULT NULL,
   KEY `id_etudiant` (`id_etudiant`),
+  PRIMARY KEY (`id_etudiant`, `salle`),
   CONSTRAINT `favoris_ibfk_1` FOREIGN KEY (`id_etudiant`) REFERENCES `Etudiant` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 
--- 2024-04-02 08:46:51
-
+-- 2024-04-02 10:39:31

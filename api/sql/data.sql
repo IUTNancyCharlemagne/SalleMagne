@@ -11,11 +11,10 @@ INSERT INTO `Etudiant` (`id`, `nom`, `prenom`, `email`, `mdp`) VALUES
 (3,	'Dubois',	'Pierre',	'pierre.dubois@email.com',	'password3');
 
 INSERT INTO `Favoris` (`id_etudiant`, `salle`) VALUES
-(1,	'Salle A'),
-(1,	'Salle B'),
-(2,	'Salle C'),
-(3,	'Salle D'),
-(3,	'Salle E');
+(1,	505),
+(1,	503),
+(2,	501),
+(3,	500),
+(3,	502);
 
--- 2024-04-02 08:47:17
-
+-- 2024-04-02 10:39:39
