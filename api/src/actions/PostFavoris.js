@@ -3,7 +3,7 @@ import {json} from "express";
 
 export async function PostFavoris(req, res) {
     //Récupérer l'id du gars avec son access token
-    const id = req.id;
+    const id = 1;
 
     const salle = req.body.salle
     try {
