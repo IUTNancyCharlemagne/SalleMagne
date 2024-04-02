@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:salle_magne/styles.dart';
+import 'package:salle_magne/widget/card_accueil.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -17,48 +17,40 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Titre'),
+        title: const Text('Salle\' Magne'),
         backgroundColor: Colors.blue,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            MaterialButton(
-              color: buttonPickFromGalleryColor,
-              onPressed: _pickImageFromGallery,
-              child: const Text(
-                'Image depuis la Gallerie',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: _pickImageFromGallery,
+                  icon: const Icon(Icons.image),
+                  label: const Text('Image depuis la Gallerie'),
                 ),
-              ),
-            ),
-            MaterialButton(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              color: buttonPickFromCameraColor,
-              onPressed: _pickImageFromCamera,
-              child: const Text(
-                'Prendre une photo',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16,
+                ElevatedButton.icon(
+                  onPressed: _pickImageFromCamera,
+                  icon: const Icon(Icons.photo_camera),
+                  label: const Text('Prendre une photo'),
                 ),
-              ),
+              ],
             ),
             const SizedBox(height: 20),
             _selectedImage != null
                 ? Image.file(_selectedImage!)
-                : const Text('Pas d\'image sélectionnée'),
+                : const CustomCard(
+                    margin: EdgeInsets.zero,
+                    child: Text(
+                      'Pas d\'image sélectionnée',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
           ],
         ),
-      ),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        child: Icon(Icons.add),
       ),
     );
   }
