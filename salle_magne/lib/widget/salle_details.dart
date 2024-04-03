@@ -28,7 +28,7 @@ class _SalleDetailsState extends State<SalleDetails> {
               children: [
                 Text(
                   'Informations sur la salle ${widget.salle}',
-                  style: TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20),
                 ),
                 IconButton(
                   icon: Icon(
@@ -41,7 +41,7 @@ class _SalleDetailsState extends State<SalleDetails> {
                     });
                   },
                 ),
-                print('Informations sur la salle ${widget.salle}'),
+           
               ],
             ),
             // Ajoutez ici d'autres widgets pour afficher les détails de la salle
