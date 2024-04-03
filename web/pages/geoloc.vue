@@ -22,9 +22,9 @@
           <l-marker :lat-lng="[48.68301483239705, 6.16099446607644]">
             <l-icon
           :icon-size="dynamicSize"
-          :icon-anchor="dynamicAnchor"
-          icon-url="../assets/logo_iut.png"
-        >        <img src="../assets/logo_iut.png" alt="Iut Charlemagne" class="mb-4 h-16 w-16 rounded-full shadow">
+          :icon-anchor="dynamicAnchor">
+          <img src="../assets/logo_iut.png" alt="Iut Charlemagne" class="mb-4 h-8 w-8  shadow">
+        
           </l-icon>     
     </l-marker> <!-- Iut Charlemagne -->
           <!-- <l-marker :lat-lng="[48.68301483239705, 6.16099446607644]"></l-marker> -->
@@ -43,7 +43,7 @@
    
  
     setup() {
-      const zoom = ref(6);
+      const zoom = ref(10);
       return { zoom };
     },
     data() {
@@ -56,7 +56,7 @@
         if (this.location) {
           return `https://www.google.fr/maps/dir/${this.location.latitude},${this.location.longitude}/Institut+Universitaire+de+Technologie+Nancy-Charlemagne,+2Ter+Bd+Charlemagne,+54000+Nancy`;
         } else {
-          return '#';
+          return "https://www.google.fr/maps/dir/''/Institut+Universitaire+de+Technologie+Nancy-Charlemagne,+2Ter+Bd+Charlemagne,+54000+Nancy";
         }
       }
     },
