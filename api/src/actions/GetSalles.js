@@ -3,7 +3,7 @@ import util from 'util';
 import ICAL from 'ical.js';
 
 
-//Récupère les salles de l'agenda et les filtre
+//Récupère les salles de l'agenda et les filtre selon les paramètres donnés
 export async function GetSalles(req, res) {
     try {
         //récupère les données du fichier ics
@@ -24,6 +24,7 @@ export async function GetSalles(req, res) {
                     summary: event.summary,
                     startDate: event.startDate.toString(),
                     endDate: event.endDate.toString(),
+                    description: event.description
                 };
             }
         });
@@ -36,6 +37,10 @@ export async function GetSalles(req, res) {
         //si un numéro de salle est passé en paramètre, filtre les évènements par salle
         if (req.query.id) data = data.filter(event => {
             return event.location.includes(req.query.id);
+        });
+        //si un cours est passé en paramètre, filtre les évènements par cours
+        if (req.query.summary) data = data.filter(event => {
+            return event.summary.toLowerCase().includes(req.query.summary.toLowerCase())
         });
         //renvoie les données
         res.json(data);
