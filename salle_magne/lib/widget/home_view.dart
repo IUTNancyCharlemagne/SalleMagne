@@ -53,7 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
         setState(() {
           _selectedTypeCours = _typeCoursController.text;
         });
-        // Remplacez CoursDetails par le widget ou l'écran de détails de cours
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -81,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Padding(
-                    padding: EdgeInsets.only(bottom: 2.0),
+                    padding: EdgeInsets.only(bottom: 10.0),
                     child: Text(
                       'Recherche par numéro de salle',
                       style:
@@ -145,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Padding(
-                    padding: EdgeInsets.only(bottom: 2.0),
+                    padding: EdgeInsets.only(bottom: 10.0),
                     child: Text(
                       'Recherche par cours',
                       style:
