@@ -13,7 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Salle\'magne',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.deepOrangeAccent,
+            secondary: Colors.red,
+            primary: Colors.orange),
         useMaterial3: true,
       ),
       home: const MyHomePage(),

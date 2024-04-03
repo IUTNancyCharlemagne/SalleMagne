@@ -2,10 +2,11 @@ name: salle_magne
 description: "A new Flutter project."
 publish_to: 'none'
 
+
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.0-275.0.dev <4.0.0'
+  sdk: ">=3.4.0-275.0.dev <4.0.0"
 
 dependencies:
   flutter:
@@ -14,8 +15,10 @@ dependencies:
   image_picker: ^1.0.7
   table_calendar: ^3.0.8
   cupertino_icons: ^1.0.6
+
   google_mlkit_text_recognition: ^0.11.0
   gallery_picker: ^0.4.8
+
 
 dev_dependencies:
 
@@ -23,7 +26,6 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^3.0.0
-  
 
 flutter:
   uses-material-design: true
