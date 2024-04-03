@@ -29,9 +29,13 @@ export async function GetSalles(req, res) {
         });
         //filtre les évènements vides
         data = data.filter(event => event !== undefined)
-        //si un id est passé en paramètre, filtre les évènements par salle
+        //trie les évènements par ordre chronologique
+        data.sort((a, b) => {
+            return new Date(a.startDate) - new Date(b.startDate);
+        });
+        //si un numéro de salle est passé en paramètre, filtre les évènements par salle
         if (req.query.id) data = data.filter(event => {
-            return event.location.endsWith(req.query.id);
+            return event.location.includes(req.query.id);
         });
         //renvoie les données
         res.json(data);
