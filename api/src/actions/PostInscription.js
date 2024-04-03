@@ -1,5 +1,6 @@
 import {db} from "../knex.js";
 import {hash, genSalt, compare} from "bcrypt";
+import {sanitizeName, validateEmail} from "../utils/sanitize.js";
 
 export async function PostInscription(req, res) {
     const auth = req.get("Authorization")
@@ -28,19 +29,24 @@ export async function PostInscription(req, res) {
         res.json({status: 1, error: "Email requis"})
         return
     }
+    if (!validateEmail(email)) {
+        res.status(401)
+        res.json({status: 1, error: "Email invalide"})
+        return
+    }
     const password = text.split(":")[1]
     if (password === "") {
         res.status(401)
         res.json({status: 1, error: "Mot de passe requis"})
         return
     }
-    const nom = req.body.nom
+    const nom = sanitizeName(req.body.nom)
     if (nom === undefined || nom === "") {
         res.status(401)
         res.json({status: 1, error: "Nom requis"})
         return
     }
-    const prenom = req.body.prenom
+    const prenom = sanitizeName(req.body.prenom)
     if (prenom === undefined || prenom === "") {
         res.status(401)
         res.json({status: 1, error: "Prénom requis"})
