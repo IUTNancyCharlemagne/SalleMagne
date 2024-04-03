@@ -36,7 +36,7 @@ if (!fs.existsSync(publicFolderPath)) {
     fs.mkdirSync(publicFolderPath);
 }
 
-const filePath = path.join(publicFolderPath, 'file.ics');
+const filePath = path.join(publicFolderPath, 'ADECAL.ics');
 
 // Planifier l'exécution de la fonction toutes les 12 heures (à midi et minuit)
 export function startCron(){
