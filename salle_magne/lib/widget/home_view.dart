@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:salle_magne/styles.dart';
 import 'package:salle_magne/widget/calender_view.dart';
@@ -26,8 +27,23 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 32),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Entrez un numéro de salle',
+                ),
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Veuillez rentrer du texte';
+                  }
+                  return null;
+                },
+              ),
+            ),
+            const SizedBox(height: 12),
             MaterialButton(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
               color: buttonPickFromGalleryColor,
@@ -57,23 +73,33 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 20),
             _selectedImage != null
-                ? Image.file(_selectedImage!)
+                ? SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: Image.file(_selectedImage!, fit: BoxFit.cover))
                 : const Text('Pas d\'image sélectionnée'),
-            MaterialButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CalendarView()),
-                );
-              },
-              child: const Text('Voir calendrier'),
-            ),
+            const SizedBox(height: 20),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: _exctractTextView(),
+            )
           ],
         ),
       ),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CalendarView()),
+          );
+        },
+        backgroundColor: Colors.black,
+        elevation: 0,
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.calendar_today,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -106,5 +132,34 @@ class _MyHomePageState extends State<MyHomePage> {
         _selectedImage = null;
       });
     }
+  }
+
+  Widget _exctractTextView() {
+    if (_selectedImage == null) {
+      return const Center(
+        child: Text('Pas de résultat'),
+      );
+    }
+    return FutureBuilder(
+        future: _extractText(_selectedImage!),
+        builder: (context, snapshot) {
+          return Text(
+            snapshot.data ?? '',
+            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w900),
+          );
+        });
+  }
+
+  Future<String?> _extractText(File file) async {
+    final textRecogniser = TextRecognizer(script: TextRecognitionScript.latin);
+    final InputImage inputImage = InputImage.fromFile(file);
+    final RecognizedText recognizedText =
+        await textRecogniser.processImage(inputImage);
+
+    String text = recognizedText.text;
+    String textFiltered = text.replaceAll(new RegExp(r'[^0-9]'), '');
+    textRecogniser.close();
+
+    return textFiltered;
   }
 }
