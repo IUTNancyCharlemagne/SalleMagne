@@ -8,14 +8,4 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  // @ts-ignore
-  router: [
-    {
-        path: '/salle/:location',
-        component: '~/pages/salle/_location/index.vue',
-        name: 'salleByLocation'
-
-    }
-  ]
-
 })

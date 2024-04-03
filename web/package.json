@@ -12,7 +12,8 @@
   "dependencies": {
     "nuxt": "^3.11.1",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-spinners": "^1.2.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",

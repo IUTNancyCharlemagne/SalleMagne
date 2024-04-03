@@ -1,6 +1,4 @@
 <script>
-import {searchSalleByText} from "~/utils/functions/searchSalleByText.js";
-import nuxtLink from "#app/components/nuxt-link.js";
 
 export default {
   data() {
@@ -14,15 +12,7 @@ export default {
       if(isNaN(num)) {
         return
       }
-        const data =  await searchSalleByText(num);
-        console.log(data);
-        //redirection vers la page /salle/{idSalle}
-        this.$router.push({
-          name: "salleByLocation",
-          params: {location : num},
-          props: {infoSalle: data}
-        });
-
+      this.$router.push(`/salle/${num}`)
     }
   }
 }
