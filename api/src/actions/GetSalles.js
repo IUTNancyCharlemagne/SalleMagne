@@ -35,8 +35,8 @@ export async function GetSalles(req, res) {
             return new Date(a.startDate) - new Date(b.startDate);
         });
         //si un numéro de salle est passé en paramètre, filtre les évènements par salle
-        if (req.query.id) data = data.filter(event => {
-            return event.location.includes(req.query.id);
+        if (req.query.location) data = data.filter(event => {
+            return event.location.includes(req.query.location);
         });
         //si un cours est passé en paramètre, filtre les évènements par cours
         if (req.query.summary) data = data.filter(event => {
