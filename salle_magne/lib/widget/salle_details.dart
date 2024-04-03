@@ -1,22 +1,51 @@
 import 'package:flutter/material.dart';
 
-class SalleDetails extends StatelessWidget {
+class SalleDetails extends StatefulWidget {
   final String salle;
 
   const SalleDetails({Key? key, required this.salle}) : super(key: key);
 
   @override
+  _SalleDetailsState createState() => _SalleDetailsState();
+}
+
+class _SalleDetailsState extends State<SalleDetails> {
+  bool isFavorite = false;
+
+  @override
   Widget build(BuildContext context) {
-    // Implémentez votre widget de détails de salle ici
     return Scaffold(
       appBar: AppBar(
-        title: Text('Détails de la salle $salle'),
-        backgroundColor: Colors.blue,
+        title: Text('Détails de la salle ${widget.salle}'),
+        backgroundColor: Colors.grey,
       ),
       body: Center(
-        child: Text(
-          'Informations sur la salle $salle',
-          style: TextStyle(fontSize: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Informations sur la salle ${widget.salle}',
+                  style: TextStyle(fontSize: 20),
+                ),
+                IconButton(
+                  icon: Icon(
+                    isFavorite ? Icons.star : Icons.star_border,
+                    color: isFavorite ? Colors.yellow : Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isFavorite = !isFavorite;
+                    });
+                  },
+                ),
+                print('Informations sur la salle ${widget.salle}'),
+              ],
+            ),
+            // Ajoutez ici d'autres widgets pour afficher les détails de la salle
+          ],
         ),
       ),
     );
