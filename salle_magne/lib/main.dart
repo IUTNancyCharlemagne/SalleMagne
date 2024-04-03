@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
             primary: Colors.orange),
         useMaterial3: true,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
