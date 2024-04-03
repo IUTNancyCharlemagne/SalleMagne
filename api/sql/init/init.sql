@@ -16,9 +16,9 @@ CREATE TABLE `Etudiant` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `Etudiant` (`id`, `nom`, `prenom`, `email`, `mdp`) VALUES
-(1,	'Dupont',	'Jean',	'jean.dupont@email.com',	'password1'),
-(2,	'Martin',	'Marie',	'marie.martin@email.com',	'password2'),
-(3,	'Dubois',	'Pierre',	'pierre.dubois@email.com',	'password3');
+(1,	'Dupont',	'Jean',	'user1',	'$2y$10$6Pffa.Qx5h6kxLg0gSlcYe65W0vxH/FDrNQFucJxJ1/hg/qD8dIaK'),
+(2,	'Martin',	'Marie',	'user2',	'$2y$10$2A/LBYsjxgC4FIi2I9eBtO7Xgx7WC191KHIh2frqHkyVqUTUumRdO'),
+(3,	'Dubois',	'Pierre',	'brozer',	'$2y$10$hwVQrS171GH4ThHbW9/NauSRvDW0NWavIJoKPbWY0odrNtS953zaK');
 
 DROP TABLE IF EXISTS `Favoris`;
 CREATE TABLE `Favoris` (
@@ -37,4 +37,4 @@ INSERT INTO `Favoris` (`id_etudiant`, `salle`) VALUES
 (3,	500),
 (3,	502);
 
--- 2024-04-02 10:47:33
+-- 2024-04-03 09:54:12
