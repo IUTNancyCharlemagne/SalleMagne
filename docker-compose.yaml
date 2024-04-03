@@ -1,10 +1,9 @@
-version: "3.5"
+version: "3"
 networks:
   salle.net:
     driver: bridge
 
 services:
-
   api:
     image: 'node:alpine'
     command: sh -c "npm i && npm run start"
@@ -20,7 +19,7 @@ services:
       - SECRET_KEY=${SECRET_KEY:-secret}
     ports:
       - '32495:3000'
-      - '32495:3443'
+      - '32499:3443'
 
   db:
     image: mariadb:10.4
