@@ -18,14 +18,22 @@ export default {
       try {
       const location = this.$route.params.location;
       const response = await searchSalleByText(location)
-        console.log(response)
+        if(response===false)this.error= true;
       this.CoursPrevu = response.length > 0;
       } catch (error) {
         this.error = true;
         console.log(error)
       }
       this.loading = false;
-    }
+    },
+
+    async addToFav(){
+
+    },
+
+    async removeFromFav(){
+
+    },
 
 
   },
@@ -39,12 +47,16 @@ export default {
 </script>
 
   <template>
-    <h1>
-      Emploi du temps de la salle {{ $route.params.location }}
-    </h1>
+
+    <div v-if="!loading && CoursPrevu && !error">
+      <h1>
+        Emploi du temps de la salle {{ $route.params.location }}
+      </h1>
+    </div>
 
 
-    <div v-if="!CoursPrevu && !loading">
+
+    <div v-if="!CoursPrevu && !loading && !error">
       Aucun cours n'est prévu dans cette salle pour le moment
       <NuxtLink to="/SearchSalle">
         Rechercher une autre salle
