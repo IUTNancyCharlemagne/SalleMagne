@@ -10,12 +10,15 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "jsonwebtoken": "^9.0.2",
     "nuxt": "^3.11.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vue3-spinners": "^1.2.2"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/vue": "^2.0.0",
     "autoprefixer": "^10.4.19",
     "nuxt3-leaflet": "^1.0.12",
     "postcss": "^8.4.38",
