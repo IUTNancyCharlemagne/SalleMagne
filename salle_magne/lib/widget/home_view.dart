@@ -30,7 +30,6 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(color: Colors.white)),
           backgroundColor: colorOrangeTheme),
       body: SingleChildScrollView(
-        // Wrap the body with SingleChildScrollView
         child: SafeArea(
           child: Center(
             child: Column(
