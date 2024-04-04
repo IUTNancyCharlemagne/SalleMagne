@@ -40,18 +40,23 @@ export async function PostInscription(req, res) {
         res.json({status: 1, error: "Mot de passe requis"})
         return
     }
-    const nom = sanitizeName(req.body.nom)
+    let nom = req.body.nom
     if (nom === undefined || nom === "") {
         res.status(401)
         res.json({status: 1, error: "Nom requis"})
         return
     }
-    const prenom = sanitizeName(req.body.prenom)
+
+    nom = sanitizeName(req.body.nom)
+
+    let prenom = req.body.prenom
     if (prenom === undefined || prenom === "") {
         res.status(401)
         res.json({status: 1, error: "Prénom requis"})
         return
     }
+
+    prenom = sanitizeName(req.body.prenom)
 
     const nbRow = await db("Etudiant").count("* as nb").where("email", email)
 
