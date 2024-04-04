@@ -17,10 +17,11 @@ async function downloadAndSaveFile(url, filePath) {
 
 // Obtenir la date actuelle
 const currentDate = new Date();
+currentDate.setDate(currentDate.getDate() - 15);
 
 // Obtenir la date dans 7 jours
 const nextWeekDate = new Date();
-nextWeekDate.setDate(nextWeekDate.getDate() + 7);
+nextWeekDate.setDate(nextWeekDate.getDate() + 30);
 
 // Formater les dates au format YYYY-MM-DD
 const formattedCurrentDate = currentDate.toISOString().split('T')[0];
@@ -40,7 +41,7 @@ const filePath = path.join(publicFolderPath, 'ADECAL.ics');
 
 // Planifier l'exécution de la fonction toutes les 12 heures (à midi et minuit)
 export function startCron(){
-    cron.schedule('0 */12 * * *', async () => {
+    cron.schedule('* */12 * * *', async () => {
         try {
             if (!existsSync(filePath)) {
                 openSync(filePath, "w");
