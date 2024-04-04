@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:salle_magne/widget/cours_details.dart';
+import 'package:salle_magne/widget/favorites_pages.dart';
+import 'package:salle_magne/widget/itineraire.dart';
 import 'package:salle_magne/widget/salle_details.dart';
 import 'package:salle_magne/widget/calender_view.dart';
 import 'package:salle_magne/styles.dart';
@@ -26,9 +28,34 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
           title: const Text('Salle\' Magne',
               style: TextStyle(color: Colors.white)),
           backgroundColor: colorAppBar),
+      actions: [
+          IconButton(
+            icon: const ImageIcon(AssetImage('assets/images/logoIut.png')),
+            iconSize: 48, // Spécifiez la taille souhaitée ici
+            color: null,
+            onPressed: () {
+              // Action à effectuer lors du clic sur le logo
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.favorite),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FavoritesPage(
+                    favoriteItems: [],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         // Wrap the body with SingleChildScrollView
         child: SafeArea(
@@ -74,10 +101,39 @@ class _MyHomePageState extends State<MyHomePage> {
                         ))),
                 const SizedBox(height: 12),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+
+        title: const Text('Salle\' Magne'),
+        backgroundColor: Colors.grey,
+        actions: [
+          IconButton(
+            icon: const ImageIcon(AssetImage('assets/images/logoIut.png')),
+            iconSize: 48, // Spécifiez la taille souhaitée ici
+            color: null,
+            onPressed: () {
+              // Action à effectuer lors du clic sur le logo
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.favorite),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FavoritesPage(
+                    favoriteItems: [],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      body: Center(e
                   ElevatedButton(
                     onPressed: _pickImageFromGallery,
                     child: const Icon(Icons.image),
                   ),
+
                   const SizedBox(width: 30),
                   ElevatedButton(
                     onPressed: _pickImageFromCamera,
@@ -137,6 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+
           ),
         ),
       ),
@@ -162,6 +219,20 @@ class _MyHomePageState extends State<MyHomePage> {
             selectedColor: Colors.orange,
           ),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ItineraireVersIUTPage(),
+              ),
+            );
+          },
+          child: const Text('Itinéraire vers l\'IUT'),
+        ),
       ),
     );
   }
@@ -217,7 +288,7 @@ class _MyHomePageState extends State<MyHomePage> {
         await textRecogniser.processImage(inputImage);
 
     String text = recognizedText.text;
-    String textFiltered = text.replaceAll(new RegExp(r'[^0-9]'), '');
+    String textFiltered = text.replaceAll(RegExp(r'[^0-9]'), '');
     textRecogniser.close();
 
     if (textFiltered.isEmpty) {
@@ -247,7 +318,8 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       );
     } else {
-      if (_salleController.text.isNotEmpty) {
+      if (_salleController.text.isNotEmpty &&
+          _typeCoursController.text.isEmpty) {
         Navigator.push(
           context,
           MaterialPageRoute(
