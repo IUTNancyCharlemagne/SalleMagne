@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,12 +13,12 @@ class ItineraireVersIUTPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String apiKey = '';
+    /*String apiKey = '';
     if (Platform.isAndroid) {
       apiKey = 'AIzaSyB1m5CcesqHLM2edg4cuwxoWCRAoLhPYDk';
     } else if (Platform.isIOS) {
       apiKey = 'AIzaSyB1m5CcesqHLM2edg4cuwxoWCRAoLhPYDk';
-    }
+    }*/
 
     return Scaffold(
       appBar: AppBar(

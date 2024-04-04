@@ -9,7 +9,7 @@ import 'package:salle_magne/widget/salle_details.dart';
 import 'package:salle_magne/widget/calender_view.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -28,20 +28,22 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.grey,
         actions: [
           IconButton(
+            icon: const ImageIcon(AssetImage('assets/images/logoIut.png')),
+            iconSize: 48, // Spécifiez la taille souhaitée ici
+            color: null,
+            onPressed: () {
+              // Action à effectuer lors du clic sur le logo
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.favorite),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const FavoritesPage(
-                          favoriteItems: [],
-                        )),
-              );
-              const Text(
-                'Favori',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
+                  builder: (context) => const FavoritesPage(
+                    favoriteItems: [],
+                  ),
                 ),
               );
             },
@@ -76,35 +78,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                      alignment: Alignment.centerRight,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          _validateAndNavigate(
-                            _salleController.text,
-                            'Veuillez entrer un numéro de salle.',
-                          );
-                        },
-                        child: const Text('Valider'),
-                      ))),
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _validateAndNavigate(
+                        _salleController.text,
+                        'Veuillez entrer un numéro de salle.',
+                      );
+                    },
+                    child: const Text('Valider'),
+                  ),
+                ),
+              ),
               const SizedBox(height: 12),
-              Row(children: [
-                ElevatedButton(
-                  onPressed: _pickImageFromGallery,
-                  child: const Icon(Icons.image),
-                ),
-                ElevatedButton(
-                  onPressed: _pickImageFromCamera,
-                  child: const Icon(Icons.photo_camera),
-                ),
-              ]),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: _pickImageFromGallery,
+                    child: const Icon(Icons.image),
+                  ),
+                  ElevatedButton(
+                    onPressed: _pickImageFromCamera,
+                    child: const Icon(Icons.photo_camera),
+                  ),
+                ],
+              ),
               const SizedBox(height: 30),
               _selectedImage != null
                   ? SizedBox(
                       width: 300,
                       height: 200,
-                      child: Image.file(_selectedImage!, fit: BoxFit.cover))
+                      child: Image.file(_selectedImage!, fit: BoxFit.cover),
+                    )
                   : const Text('Veuillez sélectionner une image'),
               const SizedBox(height: 20),
               Container(
@@ -175,7 +182,9 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ItineraireVersIUTPage()),
+              MaterialPageRoute(
+                builder: (context) => ItineraireVersIUTPage(),
+              ),
             );
           },
           child: const Text('Itinéraire vers l\'IUT'),
