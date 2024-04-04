@@ -19,7 +19,6 @@ const login = (event: Event) => {
         }
       },
   ).then((data: any) => {
-    console.log(data)
     const token = useCookie('token');
     token.value = data.token;
     navigateTo('/')

@@ -1,11 +1,9 @@
 <template>
-    <div>
-        Hello world
-    </div>
+  <div>
+    Hello world
+  </div>
 </template>
 
-<script>
-import {getTokenUser} from "~/utils/functions/tokenUser.ts";
+<script setup>
 
-console.log(getTokenUser())
 </script>
