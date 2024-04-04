@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'widget/home_view.dart';
+import 'styles.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,7 +8,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.deepOrangeAccent,
             secondary: Colors.red,
-            primary: Colors.orange),
+            primary: colorOrangeTheme),
         useMaterial3: true,
       ),
       home: const MyHomePage(),

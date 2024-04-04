@@ -18,7 +18,7 @@ class _CalendarViewState extends State<CalendarView> {
           'Calendrier',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: backgroundAppbarColor,
+        backgroundColor: colorAppBar,
       ),
       body: Center(
           child: TableCalendar(

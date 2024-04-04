@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
 
-const backgroundAppbarColor = Color.fromARGB(255, 36, 151, 233);
-
-const buttonPickFromGalleryColor = Colors.blue;
-const buttonPickFromCameraColor = Colors.red;
+const colorOrangeTheme = Color.fromARGB(255, 120, 118, 116);
+const colorAppBar = Color.fromRGBO(232, 162, 32, 1);
