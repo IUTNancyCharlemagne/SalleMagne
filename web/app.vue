@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="bg-white shadow ">
+    <nav class="bg-white h-[8vh] shadow flex ">
       <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="relative flex items-center justify-between h-16">
           <div class="flex items-center space-x-4 px-2 lg:px-0">
@@ -39,7 +39,9 @@
         </div>
       </div>
     </nav>
-    <NuxtPage />
+    <div class="h-[92vh]">
+    <NuxtPage/>
+    </div>
   </div>
 </template>
 
@@ -51,4 +53,5 @@ const logoutAndRedirect = () => {
   delTokenUser();
   reloadNuxtApp();
 };
+
 </script>
