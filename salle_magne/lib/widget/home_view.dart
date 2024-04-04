@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:salle_magne/widget/cours_details.dart';
+import 'package:salle_magne/widget/favorites_pages.dart';
+import 'package:salle_magne/widget/itineraire.dart';
 import 'package:salle_magne/widget/salle_details.dart';
 import 'package:salle_magne/widget/calender_view.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -24,109 +26,132 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('Salle\' Magne'),
         backgroundColor: Colors.grey,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.favorite),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const FavoritesPage(
+                          favoriteItems: [],
+                        )),
+              );
+              const Text(
+                'Favori',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 10.0),
-                    child: Text(
-                      'Recherche par numéro de salle',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: Text(
+                        'Recherche par numéro de salle',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                  TextFormField(
-                    controller: _salleController,
-                    decoration: const InputDecoration(
-                      labelText: 'Numéro de salle ',
-                      border: OutlineInputBorder(),
+                    TextFormField(
+                      controller: _salleController,
+                      decoration: const InputDecoration(
+                        labelText: 'Numéro de salle ',
+                        border: OutlineInputBorder(),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _validateAndNavigate(
-                          _salleController.text,
-                          'Veuillez entrer un numéro de salle.',
-                        );
-                      },
-                      child: const Text('Valider'),
-                    ))),
-            const SizedBox(height: 12),
-            Row(children: [
-              ElevatedButton(
-                onPressed: _pickImageFromGallery,
-                child: const Icon(Icons.image),
-              ),
-              ElevatedButton(
-                onPressed: _pickImageFromCamera,
-                child: const Icon(Icons.photo_camera),
-              ),
-            ]),
-            const SizedBox(height: 30),
-            _selectedImage != null
-                ? SizedBox(
-                    width: 300,
-                    height: 200,
-                    child: Image.file(_selectedImage!, fit: BoxFit.cover))
-                : const Text('Veuillez sélectionner une image'),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: _exctractTextView(),
-            ),
-            const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 10.0),
-                    child: Text(
-                      'Recherche par cours',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  TextFormField(
-                    controller: _typeCoursController,
-                    decoration: const InputDecoration(
-                      labelText: 'Type de cours',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0, top: 8.0),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton(
-                  onPressed: () {
-                    _validateAndNavigate(
-                      _typeCoursController.text,
-                      'Veuillez entrer un type de cours.',
-                    );
-                  },
-                  child: const Text('Valider'),
+                  ],
                 ),
               ),
-            ),
-          ],
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _validateAndNavigate(
+                            _salleController.text,
+                            'Veuillez entrer un numéro de salle.',
+                          );
+                        },
+                        child: const Text('Valider'),
+                      ))),
+              const SizedBox(height: 12),
+              Row(children: [
+                ElevatedButton(
+                  onPressed: _pickImageFromGallery,
+                  child: const Icon(Icons.image),
+                ),
+                ElevatedButton(
+                  onPressed: _pickImageFromCamera,
+                  child: const Icon(Icons.photo_camera),
+                ),
+              ]),
+              const SizedBox(height: 30),
+              _selectedImage != null
+                  ? SizedBox(
+                      width: 300,
+                      height: 200,
+                      child: Image.file(_selectedImage!, fit: BoxFit.cover))
+                  : const Text('Veuillez sélectionner une image'),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: _exctractTextView(),
+              ),
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: Text(
+                        'Recherche par cours',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _typeCoursController,
+                      decoration: const InputDecoration(
+                        labelText: 'Type de cours',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0, top: 8.0),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _validateAndNavigate(
+                        _typeCoursController.text,
+                        'Veuillez entrer un type de cours.',
+                      );
+                    },
+                    child: const Text('Valider'),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -142,6 +167,18 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(
           Icons.calendar_today,
           color: Colors.white,
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ItineraireVersIUTPage()),
+            );
+          },
+          child: const Text('Itinéraire vers l\'IUT'),
         ),
       ),
     );
@@ -198,7 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
         await textRecogniser.processImage(inputImage);
 
     String text = recognizedText.text;
-    String textFiltered = text.replaceAll(new RegExp(r'[^0-9]'), '');
+    String textFiltered = text.replaceAll(RegExp(r'[^0-9]'), '');
     textRecogniser.close();
 
     if (textFiltered.isEmpty) {
@@ -228,7 +265,8 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       );
     } else {
-      if (_salleController.text.isNotEmpty) {
+      if (_salleController.text.isNotEmpty &&
+          _typeCoursController.text.isEmpty) {
         Navigator.push(
           context,
           MaterialPageRoute(
