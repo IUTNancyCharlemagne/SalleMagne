@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Padding(
                   padding: EdgeInsets.only(left: 20.0, bottom: 10.0),
                   child: Text(
-                    'Recherche par image',
+                    'Recherche via une image',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),

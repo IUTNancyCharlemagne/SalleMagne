@@ -62,7 +62,7 @@ class NavigationBarNonCo extends StatelessWidget {
       case 2:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const LoginView()),
+          MaterialPageRoute(builder: (context) => LoginView()),
         );
         break;
       case 3:
