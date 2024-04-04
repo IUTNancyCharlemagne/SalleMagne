@@ -1,7 +1,6 @@
 name: salle_magne
 description: "A new Flutter project."
-publish_to: 'none'
-
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -16,14 +15,13 @@ dependencies:
   table_calendar: ^3.0.8
   cupertino_icons: ^1.0.6
 
+  dot_navigation_bar:
+
+  google_maps_flutter: ^2.2.0
   google_mlkit_text_recognition: ^0.11.0
-  gallery_picker: ^0.4.8
-  google_maps_flutter: ^2.6.0
   url_launcher: ^6.2.5
 
-
 dev_dependencies:
-
   flutter_test:
     sdk: flutter
 
@@ -31,3 +29,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/logoIut.png
