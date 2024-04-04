@@ -1,6 +1,6 @@
 <template>
-  <div class="flex p-4  ">
-    <div class="w-1/2 p-4 bg-white rounded-lg shadow mx-2">
+  <div class="flex flex-col sm:flex-row p-4">
+    <div class="w-full sm:w-1/2 p-4 bg-white rounded-lg shadow mx-2">
       <h1 class="text-2xl font-bold mb-4 text-blue-800">Où est l'IUT Charlemagne ?</h1>
       <img src="../assets/logo_iut.png" alt="Iut Charlemagne" class="mb-4 h-16 w-16">
       <p class="mb-4 text-lg text-gray-700">Iut Charlemagne : 2Ter Bd Charlemagne, 54000 Nancy</p>
@@ -11,7 +11,7 @@
         Longitude: <span class="font-bold">{{ location.longitude }}</span>
       </div>
     </div>
-    <div class="w-1/2 p-4 bg-white rounded-lg shadow">
+    <div class="w-full sm:w-1/2 p-4 bg-white rounded-lg shadow mx-2">
   <h2 class="text-2xl font-bold mb-4 text-blue-800">Carte:</h2>
   <LMap
     ref="map"
