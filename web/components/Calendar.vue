@@ -1,10 +1,10 @@
 <script>
-import { defineComponent } from 'vue'
+import {defineComponent} from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import { createEventId } from '../utils/createEventId.js'
+import {createEventId} from '../utils/createEventId.js'
 import {dateFormatToCalendar} from "~/utils/functions/dateFormatToCalendar.js";
 import {getHeureFormatee} from "~/utils/functions/getHeureFormatee.js";
 
@@ -34,75 +34,41 @@ export default defineComponent({
         dayMaxEvents: false,
         weekends: true,
         firstDay: 1,
-        //select: this.handleDateSelect,
+        allDaySlot: false,
+        locale: 'fr',
         eventClick: this.handleEventClick,
-        //eventsSet: this.handleEvents,
-        /* you can update a remote database when these fire:
-        eventAdd:
-        eventChange:
-        eventRemove:
-        */
       },
+
       currentEvents: [],
-      infoEvent : "",
-      popupShow : false,
-      infoPopup : {},
+      infoEvent: "",
+      popupShow: false,
+      infoPopup: {},
     }
   },
   methods: {
     getHeureFormatee,
     addEvent(cours) {
-      const newEvent=  {
+      const newEvent = {
         id: createEventId(),
         title: cours.summary,
         start: dateFormatToCalendar(cours.startDate),
         end: dateFormatToCalendar(cours.endDate),
       }
-      console.log(
-          "newEvent : ", newEvent
-      )
       return newEvent
 
     },
 
     addAllEvents() {
-      console.log(
-          "props : ", this.event
-      )
       const eventsTable = []
       this.event.forEach((cours) => {
         eventsTable.push(this.addEvent(cours))
       })
-
-      console.log("all EVENTS", eventsTable)
       return eventsTable
     },
-
-
-    /**
-    handleDateSelect(selectInfo) {
-      let title = prompt('Please enter a new title for your event')
-      let calendarApi = selectInfo.view.calendar
-
-      calendarApi.unselect() // clear date selection
-
-      if (title) {
-        calendarApi.addEvent({
-          id: createEventId(),
-          title,
-          start: selectInfo.startStr,
-          end: selectInfo.endStr,
-          allDay: selectInfo.allDay
-        })
-      }
-    },
-     **/
 
     handleEventClick(clickInfo) {
       this.infoPopup = clickInfo
       this.popupShow = true
-      console.log("infoPopup : ", this.infoPopup.event)
-
     },
 
   },
@@ -114,7 +80,7 @@ export default defineComponent({
 <template>
   <div class='app'>
     <div class='app-main'>
-      <Popup :is-open = "popupShow" @modal-close="args => {this.popupShow=false}">
+      <Popup :is-open="popupShow" @modal-close="args => {this.popupShow=false}">
         <template v-slot:header>
           <h2>Detail du cours</h2>
         </template>
@@ -122,7 +88,7 @@ export default defineComponent({
         <template v-slot:content>
           <ul>
             <li>
-             <b> {{ this.infoPopup.event.title }}</b>
+              <b> {{ this.infoPopup.event.title }}</b>
             </li>
             <li>
               <b>Début :</b> {{ getHeureFormatee(this.infoPopup.event.startStr) || 'Inconnue' }}
@@ -130,6 +96,11 @@ export default defineComponent({
             <li>
               <b>Fin :</b> {{ getHeureFormatee(this.infoPopup.event.endStr) || 'Inconnue' }}
             </li>
+
+            <li>
+              <b> Salle :</b> {{ event[0].location || 'Inconnue' }}
+            </li>
+
           </ul>
         </template>
 
