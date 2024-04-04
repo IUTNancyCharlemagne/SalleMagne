@@ -1,1 +1,0 @@
-export { default } from "file:///C:/Users/Jules/Documents/Cours%20IUT/S5%20S6-ADWM1/Atelier/sae-s6-atelier-3-la-voyelle/web/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"
