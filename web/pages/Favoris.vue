@@ -15,6 +15,12 @@
 <script>
 import axios from 'axios';
 import { API_FAVORIS } from '~/utils/api_const';
+import authMiddleware from "~/middleware/auth";
+import { getTokenUser } from "~/utils/functions/tokenUser";
+
+definePageMeta({
+  middleware: authMiddleware
+})
 
 export default {
   data() {
@@ -26,7 +32,7 @@ export default {
     const api = axios.create({
       baseURL: API_FAVORIS,
       headers: {
-        'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTcxMjIyNDQ4NiwiZXhwIjoxNzEyMjI4MDg2fQ.Svfr99fIqZCQBOJA0UB6ydVMJfjKfDtzfG6xKAqx0uI`
+        'Authorization': `Bearer `+getTokenUser(),
       }
     });
 
