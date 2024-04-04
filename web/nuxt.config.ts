@@ -8,4 +8,9 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  modules: [
+    'nuxt3-leaflet'
+  ]
+
+
 })
