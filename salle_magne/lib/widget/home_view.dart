@@ -28,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
           title: const Text('Salle\' Magne',
               style: TextStyle(color: Colors.white)),
-          backgroundColor: colorAppBar),
+          backgroundColor: colorOrangeTheme),
       body: SingleChildScrollView(
         // Wrap the body with SingleChildScrollView
         child: SafeArea(
@@ -146,20 +146,25 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
+            navigate(index);
           });
         },
         items: [
           DotNavigationBarItem(
-            icon: const Icon(Icons.home, size: 20), // Adjust icon size
-            selectedColor: Colors.blue,
+            icon: const Icon(Icons.home, size: 20),
+            selectedColor: colorOrangeTheme,
           ),
           DotNavigationBarItem(
-            icon: const Icon(Icons.search, size: 20), // Adjust icon size
-            selectedColor: Colors.green,
+            icon: const Icon(Icons.star, size: 20),
+            selectedColor: colorOrangeTheme,
           ),
           DotNavigationBarItem(
-            icon: const Icon(Icons.notifications, size: 20), // Adjust icon size
-            selectedColor: Colors.orange,
+            icon: const Icon(Icons.calendar_today, size: 20),
+            selectedColor: colorOrangeTheme,
+          ),
+          DotNavigationBarItem(
+            icon: const Icon(Icons.square, size: 20),
+            selectedColor: colorOrangeTheme,
           ),
         ],
       ),
@@ -178,6 +183,27 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _selectedImage = null;
       });
+    }
+  }
+
+  void navigate(int index) {
+    switch (index) {
+      case 0:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MyHomePage()));
+        break;
+      case 1:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MyHomePage()));
+        break;
+      case 2:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const CalendarView()));
+        break;
+      case 3:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MyHomePage()));
+        break;
     }
   }
 
