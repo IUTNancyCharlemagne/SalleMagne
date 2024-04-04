@@ -68,7 +68,7 @@ const register = (event: Event) => {
         <label for="prenom" class="font-semibold">Prénom :</label>
         <input type="text" id="prenom" v-model="prenom" required
                class="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:border-blue-500">
-        <button type="submit" class="bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300">
+        <button type="submit" class="bg-blue-700 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300">
           S'inscrire
         </button>
       </form>
