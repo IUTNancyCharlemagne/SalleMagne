@@ -1,6 +1,6 @@
 import {getTokenUser} from "~/utils/functions/tokenUser";
 
-const authMiddleware = async (to, from) => {
+const authMiddleware = async () => {
     const token = getTokenUser()
 
     if (!token) {

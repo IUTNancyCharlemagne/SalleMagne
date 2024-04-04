@@ -46,8 +46,8 @@
 import {delTokenUser, getTokenUser} from "~/utils/functions/tokenUser";
 
 const token = getTokenUser();
-const logoutAndRedirect = async () => {
-  await delTokenUser();
+const logoutAndRedirect = () => {
+  delTokenUser();
   reloadNuxtApp();
 };
 </script>
