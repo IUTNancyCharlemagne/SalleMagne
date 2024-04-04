@@ -23,6 +23,13 @@ export async function PostInscription(req, res) {
         res.json({status: 1, error: "Encodage mal fait"})
         return
     }
+
+    if (!text.includes(":")) {
+        res.status(401)
+        res.json({status: 1, error: "Encodage mal fait"})
+        return
+    }
+
     const email = text.split(":")[0]
     if (email === "") {
         res.status(401)
