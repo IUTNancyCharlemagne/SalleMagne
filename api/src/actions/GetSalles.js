@@ -22,48 +22,45 @@ export async function GetSalles(req, res) {
             let startDate = event.startDate.toJSDate();
             startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
 
-            //vérifie si l'évènement est dans la semaine à venir et sélectionne la salle, le résumé, la date de début et la date de fin
-            if ((startDate >= currentDate) &&
-                (event.startDate.toJSDate() < new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000))) {
 
-                //Variables de la date de début de cours
-                const startDay = event.startDate.toJSDate().getDate();
-                //Ajoute 1 car les mois commencent à 0
-                const startMonth = event.startDate.toJSDate().getMonth() + 1;
-                const startYear = event.startDate.toJSDate().getFullYear();
-                //Ajoute 2 car les heures sont en UTC0
-                const startHour = event.startDate.toJSDate().getHours() + 2;
-                const startMinutes = event.startDate.toJSDate().getMinutes();
+            //Variables de la date de début de cours
+            const startDay = event.startDate.toJSDate().getDate();
+            //Ajoute 1 car les mois commencent à 0
+            const startMonth = event.startDate.toJSDate().getMonth() + 1;
+            const startYear = event.startDate.toJSDate().getFullYear();
+            //Ajoute 2 car les heures sont en UTC0
+            const startHour = event.startDate.toJSDate().getHours() + 2;
+            const startMinutes = event.startDate.toJSDate().getMinutes();
 
-                //Variables de la fin de cours
-                const endDay = event.endDate.toJSDate().getDate();
-                //Ajoute 1 car les mois commencent à 0
-                const endMonth = event.endDate.toJSDate().getMonth() + 1;
-                const endYear = event.endDate.toJSDate().getFullYear();
-                //Ajoute 2 car les heures sont en UTC0
-                const endHour = event.endDate.toJSDate().getHours() + 2;
-                const endMinutes = event.endDate.toJSDate().getMinutes();
+            //Variables de la fin de cours
+            const endDay = event.endDate.toJSDate().getDate();
+            //Ajoute 1 car les mois commencent à 0
+            const endMonth = event.endDate.toJSDate().getMonth() + 1;
+            const endYear = event.endDate.toJSDate().getFullYear();
+            //Ajoute 2 car les heures sont en UTC0
+            const endHour = event.endDate.toJSDate().getHours() + 2;
+            const endMinutes = event.endDate.toJSDate().getMinutes();
 
-                return {
-                    location: event.location,
-                    summary: event.summary,
-                    startDate: {
-                        fullDate: event.startDate.toJSDate(),
-                        date: (startDay > 9 ? startDay : ("0") + startDay) + "/"
-                            + (startMonth > 9 ? startMonth : ("0") + startMonth) + "/"
-                            + startYear,
-                        hour: (startHour > 9 ? startHour : "0" + startHour) + ":" + startMinutes + "0",
-                    },
-                    endDate: {
-                        fullDate: event.endDate.toJSDate(),
-                        date: (endDay > 9 ? endDay : ("0") + endDay) + "/"
-                            + (endMonth > 9 ? endMonth : ("0") + endMonth) + "/"
-                            + endYear,
-                        hour: (endHour > 9 ? endHour : "0" + endHour) + ":" + endMinutes + "0",
-                    },
-                    description: event.description
-                };
-            }
+            return {
+                location: event.location,
+                summary: event.summary,
+                startDate: {
+                    fullDate: event.startDate.toJSDate(),
+                    date: (startDay > 9 ? startDay : ("0") + startDay) + "/"
+                        + (startMonth > 9 ? startMonth : ("0") + startMonth) + "/"
+                        + startYear,
+                    hour: (startHour > 9 ? startHour : "0" + startHour) + ":" + startMinutes + "0",
+                },
+                endDate: {
+                    fullDate: event.endDate.toJSDate(),
+                    date: (endDay > 9 ? endDay : ("0") + endDay) + "/"
+                        + (endMonth > 9 ? endMonth : ("0") + endMonth) + "/"
+                        + endYear,
+                    hour: (endHour > 9 ? endHour : "0" + endHour) + ":" + endMinutes + "0",
+                },
+                description: event.description
+            };
+
         });
 
         //filtre les évènements vides
