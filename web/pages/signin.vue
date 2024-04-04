@@ -1,3 +1,44 @@
+<script setup lang="ts">
+import {ref} from 'vue';
+import {API_LOGIN} from "~/utils/api_const";
+
+const email = ref('');
+const password = ref('');
+const err = ref('');
+
+const login = (event: Event) => {
+  event.preventDefault();
+
+  const credentials = btoa(`${email.value}:${password.value}`);
+
+  $fetch(API_LOGIN, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Basic ${credentials}`
+        }
+      },
+  ).then((data: any) => {
+    console.log(data)
+    const token = useCookie('token');
+    token.value = data.token;
+    navigateTo('/')
+  }).catch((error) => {
+    switch (error.status) {
+      case 401:
+        err.value = 'Erreur : mot de passe ou login incorrect';
+        break;
+      case 500:
+        err.value = 'Erreur : impossible de se connecter';
+        break;
+      default:
+        err.value = 'Erreur serveur';
+        break;
+    }
+  });
+}
+</script>
+
 <template>
   <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="max-w-md w-full p-6 bg-white rounded-md shadow-md">
@@ -13,49 +54,7 @@
           Se connecter
         </button>
       </form>
-      <p class="text-red-500 mt-4">{{ error }}</p>
+      <p class="text-red-500 mt-4">{{ err }}</p>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import {ref} from 'vue';
-import {API_LOGIN} from "~/utils/api_const";
-
-const email = ref('');
-const password = ref('');
-const error = ref('');
-
-const login = (event: Event) => {
-  event.preventDefault();
-
-  $fetch(API_LOGIN, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: {
-      login: email.value,
-      password: password.value,
-    },
-  }).then((data) => {
-    switch (data.statusCode) {
-      case 401:
-        error.value = 'Erreur : mot de passe incorrect';
-        break;
-      case 404:
-        error.value = 'Erreur : aucun utilisateur avec ce login';
-        break;
-      case 500:
-        error.value = 'Erreur : impossible de se connecter';
-        break;
-      default:
-        update({user: data.user});
-        navigateTo('/log');
-        break;
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
-}
-</script>
