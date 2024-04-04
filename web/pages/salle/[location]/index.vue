@@ -1,9 +1,12 @@
 <script>
 import {searchSalleByText} from "~/utils/functions/searchSalleByText.js";
 import {VueSpinner} from 'vue3-spinners';
+import Calendar from "~/components/Calendar.vue";
+
 
 export default {
   components: {
+    Calendar,
     VueSpinner
   },
   data() {
@@ -11,6 +14,7 @@ export default {
       CoursPrevu: false,
       loading : true,
       error: false,
+      Cours: [],
     };
   },
   methods: {
@@ -20,6 +24,8 @@ export default {
       const response = await searchSalleByText(location)
         if(response===false)this.error= true;
       this.CoursPrevu = response.length > 0;
+      this.Cours = response;
+        console.log(response)
       } catch (error) {
         this.error = true;
         console.log(error)
@@ -52,6 +58,7 @@ export default {
       <h1>
         Emploi du temps de la salle {{ $route.params.location }}
       </h1>
+      <Calendar :event="Cours"/>
     </div>
 
 
