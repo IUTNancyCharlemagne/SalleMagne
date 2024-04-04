@@ -8,7 +8,12 @@
                       class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
               Accueil
             </NuxtLink>
+            <NuxtLink to="/geoloc"
+                      class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+              Où est l'iut charlemagne ?
+            </NuxtLink>
             <div v-if="token === '' || token === null">
+              <div class="flex items-end">
               <NuxtLink to="/signin"
                         class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                 Se connecter
@@ -17,11 +22,12 @@
                         class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                 S'inscrire
               </NuxtLink>
+              </div>
             </div>
             <div v-else class="flex items-center space-x-4">
-              <NuxtLink to="/geoloc"
+              <NuxtLink to="/favorites"
                         class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                Où est l'iut charlemagne ?
+                Mes Favories
               </NuxtLink>
               <button @click="logoutAndRedirect"
                       class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
@@ -39,9 +45,9 @@
 <script setup>
 import {delTokenUser, getTokenUser} from "~/utils/functions/tokenUser";
 
-const token = ref(getTokenUser());
-
-const logoutAndRedirect = () => {
-  delTokenUser();
+const token = getTokenUser();
+const logoutAndRedirect = async () => {
+  await delTokenUser();
+  reloadNuxtApp();
 };
 </script>

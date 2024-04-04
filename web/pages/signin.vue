@@ -21,7 +21,9 @@ const login = (event: Event) => {
   ).then((data: any) => {
     const token = useCookie('token');
     token.value = data.token;
-    navigateTo('/')
+    reloadNuxtApp({
+      path:'/',
+    });
   }).catch((error) => {
     switch (error.status) {
       case 401:
@@ -31,7 +33,7 @@ const login = (event: Event) => {
         err.value = 'Erreur : impossible de se connecter';
         break;
       default:
-        err.value = 'Erreur serveur';
+        err.value = 'Erreur application/serveur';
         break;
     }
   });
