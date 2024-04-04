@@ -41,7 +41,7 @@ const login = (event: Event) => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="h-[92vh] flex items-center justify-center bg-gray-100">
     <div class="max-w-md w-full p-6 bg-white rounded-md shadow-md">
       <h1 class="text-3xl font-semibold mb-6">Page de connexion</h1>
       <form @submit.prevent="login" class="flex flex-col space-y-4">
