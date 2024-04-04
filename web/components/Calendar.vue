@@ -4,9 +4,9 @@ import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import { INITIAL_EVENTS, createEventId } from '../utils/event-utils.js'
+import { createEventId } from '../utils/createEventId.js'
 import {dateFormatToCalendar} from "~/utils/functions/dateFormatToCalendar.js";
-import * as events from "events";
+import {getHeureFormatee} from "~/utils/functions/getHeureFormatee.js";
 
 export default defineComponent({
   components: {
@@ -24,7 +24,7 @@ export default defineComponent({
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: 'timeGridWeek,timeGridDay'
+          right: 'timeGridDay, timeGridWeek'
         },
         initialView: 'timeGridWeek',
         initialEvents: this.addAllEvents(), // alternatively, use the `events` setting to fetch from a feed
@@ -35,8 +35,8 @@ export default defineComponent({
         weekends: true,
         firstDay: 1,
         //select: this.handleDateSelect,
-        //eventClick: this.handleEventClick,
-        eventsSet: this.handleEvents
+        eventClick: this.handleEventClick,
+        //eventsSet: this.handleEvents,
         /* you can update a remote database when these fire:
         eventAdd:
         eventChange:
@@ -44,9 +44,13 @@ export default defineComponent({
         */
       },
       currentEvents: [],
+      infoEvent : "",
+      popupShow : false,
+      infoPopup : {},
     }
   },
   methods: {
+    getHeureFormatee,
     addEvent(cours) {
       const newEvent=  {
         id: createEventId(),
@@ -92,15 +96,13 @@ export default defineComponent({
         })
       }
     },
+     **/
 
     handleEventClick(clickInfo) {
-      if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-        clickInfo.event.remove()
-      }
-    },
-    **/
-    handleEvents(events) {
-      this.currentEvents = events
+      this.infoPopup = clickInfo
+      this.popupShow = true
+      console.log("infoPopup : ", this.infoPopup.event)
+
     },
 
   },
@@ -111,18 +113,32 @@ export default defineComponent({
 
 <template>
   <div class='app'>
-    <div class='app-sidebar'>
-      <div class='app-sidebar-section'>
-        <h2>All Events ({{ currentEvents.length }})</h2>
-        <ul>
-          <li v-for='event in currentEvents' :key='event.id'>
-            <b>{{ event.startStr }}</b>
-            <i>{{ event.title }}</i>
-          </li>
-        </ul>
-      </div>
-    </div>
     <div class='app-main'>
+      <Popup :is-open = "popupShow" @modal-close="args => {this.popupShow=false}">
+        <template v-slot:header>
+          <h2>Detail du cours</h2>
+        </template>
+
+        <template v-slot:content>
+          <ul>
+            <li>
+             <b> {{ this.infoPopup.event.title }}</b>
+            </li>
+            <li>
+              <b>Début :</b> {{ getHeureFormatee(this.infoPopup.event.startStr) || 'Inconnue' }}
+            </li>
+            <li>
+              <b>Fin :</b> {{ getHeureFormatee(this.infoPopup.event.endStr) || 'Inconnue' }}
+            </li>
+          </ul>
+        </template>
+
+        <template v-slot:footer>
+          <div>
+            <button @click.stop="popupShow=false">Fermer</button>
+          </div>
+        </template>
+      </Popup>
       <FullCalendar
           class='app-calendar'
           :options='calendarOptions'
@@ -159,21 +175,11 @@ b { /* used for event dates/times */
 
 .app {
   display: flex;
-  min-height: 100%;
+  min-height: 300px;
   font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
   font-size: 14px;
 }
 
-.app-sidebar {
-  width: 300px;
-  line-height: 1.5;
-  background: #eaf9ff;
-  border-right: 1px solid #d3e2e8;
-}
-
-.app-sidebar-section {
-  padding: 2em;
-}
 
 .app-main {
   flex-grow: 1;
