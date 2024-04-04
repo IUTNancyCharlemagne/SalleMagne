@@ -1,7 +1,7 @@
 <template>
   <div class="flex p-4  ">
     <div class="w-1/2 p-4 bg-white rounded-lg shadow mx-2">
-      <h1 class="text-2xl font-bold mb-4 text-blue-800">Où est l'Iut Charlemagne ?</h1>
+      <h1 class="text-2xl font-bold mb-4 text-blue-800">Où est l'IUT Charlemagne ?</h1>
       <img src="../assets/logo_iut.png" alt="Iut Charlemagne" class="mb-4 h-16 w-16">
       <p class="mb-4 text-lg text-gray-700">Iut Charlemagne : 2Ter Bd Charlemagne, 54000 Nancy</p>
       <h2 class="text-xl font-bold mb-4 text-blue-800">Votre Position:</h2>
@@ -17,7 +17,7 @@
     ref="map"
     :zoom="zoom"
     :center="location ? [location.latitude, location.longitude] : [48.68301483239705, 6.16099446607644]"
-    class="rounded-lg shadow-lg mb-4" style="height: 400px;width: 100%";
+    class="rounded-lg shadow-lg mb-4" style="height: 400px;width: 100%"
   >
     <LTileLayer
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
