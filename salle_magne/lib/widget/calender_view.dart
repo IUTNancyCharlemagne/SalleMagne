@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salle_magne/styles.dart';
+import 'package:salle_magne/widget/navigation_bar_nonco.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarView extends StatefulWidget {
@@ -21,15 +22,18 @@ class _CalendarViewState extends State<CalendarView> {
         backgroundColor: colorOrangeTheme,
       ),
       body: Center(
-          child: TableCalendar(
-        firstDay: DateTime(2024, 3, 1),
-        lastDay: DateTime(2024, 30, 3),
-        focusedDay: DateTime.now(),
-      )),
+        child: TableCalendar(
+          firstDay: DateTime(2024, 3, 1),
+          lastDay: DateTime(2024, 30, 3),
+          focusedDay: DateTime.now(),
+        ),
+      ),
       floatingActionButton: const FloatingActionButton(
         onPressed: null,
         child: Icon(Icons.add),
       ),
+      bottomNavigationBar:
+          const NavigationBarNonCo(), // Ajoutez la barre de navigation en bas de la page
     );
   }
 }

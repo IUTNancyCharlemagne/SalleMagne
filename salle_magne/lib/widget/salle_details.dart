@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salle_magne/widget/navigation_bar_nonco.dart'; // Importez votre barre de navigation
 
 class SalleDetails extends StatefulWidget {
   final String salle;
@@ -41,13 +42,14 @@ class _SalleDetailsState extends State<SalleDetails> {
                     });
                   },
                 ),
-           
               ],
             ),
             // Ajoutez ici d'autres widgets pour afficher les détails de la salle
           ],
         ),
       ),
+      bottomNavigationBar:
+          const NavigationBarNonCo(), // Ajoutez la barre de navigation en bas de la page
     );
   }
 }
