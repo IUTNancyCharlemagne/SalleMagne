@@ -9,6 +9,7 @@
       class=" mx-1 px-1 py-1 text-lg text-white bg-red-700 rounded hover:bg-red-600">
       Supprimer
     </button>
+    <p v-if="error !== ''" class="text-red-500 text-xl py-5">{{ error }}</p>
     <ul>
       <li v-for="favori in favoris" :key="favori.salle" class="mb-2">
         <input type="checkbox" :value="favori" v-model="selectedFavoris" class="mr-2">
@@ -35,6 +36,7 @@ export default {
     return {
       favoris: [],
       selectedFavoris: [],
+      error : '',
     };
   },
   created() {
@@ -49,6 +51,7 @@ export default {
   }
 },
     loadFavoris() {
+      this.error = "";
       fetch(API_FAVORIS, {
         method: 'GET',
         headers: {
@@ -57,7 +60,7 @@ export default {
       })
           .then(response => {
             if (!response.ok) {
-              throw new Error('Erreur lors de la récupération des favoris');
+              this.error = 'Veuillez vous reconnecter';
             }
             return response.json();
           })
@@ -66,6 +69,7 @@ export default {
             console.log(this.favoris);
           })
           .catch(error => {
+            this.error = 'Veuillez vous reconnecter';
             console.error('Erreur :', error);
           });
     },
