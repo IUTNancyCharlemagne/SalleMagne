@@ -67,7 +67,6 @@ export default {
           })
           .then(data => {
             this.favoris = data.data;
-            console.log(this.favoris);
           })
           .catch(error => {
             this.error = 'Veuillez vous reconnecter';
