@@ -83,7 +83,7 @@ export default {
         <input class="shadow border-2" type="text" v-model="coursInput" placeholder="Exemple: anglais">
         <button
             class="ml-4 bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200"
-            @click="searchSalleByText">Rechercher
+            @click="searchCoursByText">Rechercher
         </button>
       </div>
 
