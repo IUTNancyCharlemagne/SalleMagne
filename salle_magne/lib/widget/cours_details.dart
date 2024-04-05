@@ -49,7 +49,7 @@ class _CoursDetailsState extends State<CoursDetails> {
     Map<String, List<String>> sallesParEtage = {};
     for (var data in salleData) {
       String? etage = _extractEtage(data['location']);
-      String salle = data['location'];
+      String salle = _extractSalle(data['location']);
       if (etage != null) {
         if (!sallesParEtage.containsKey(etage)) {
           sallesParEtage[etage] = [];
@@ -59,6 +59,20 @@ class _CoursDetailsState extends State<CoursDetails> {
       String cours = data['summary'];
     }
     return sallesParEtage;
+  }
+
+  String _extractSalle(String? location) {
+    if (location == null || location.isEmpty) {
+      return '';
+    }
+
+    // Utilisation d'une expression régulière pour extraire les chiffres de la chaîne
+    RegExp regExp = RegExp(r'(\d{1,3})');
+    Match? match = regExp.firstMatch(location);
+    if (match != null) {
+      return match.group(0)!;
+    }
+    return '';
   }
 
   String? _extractEtage(String? location) {
@@ -145,7 +159,7 @@ class _CoursDetailsState extends State<CoursDetails> {
     return SizedBox(
       width: 600, // Définissez une largeur maximale pour les tuiles
       child: ListTile(
-        title: Text('Cours $salle'),
+        title: Text('Cours en $salle'),
         onTap: () {
           // Naviguer vers la page de détails de la salle
           Navigator.push(
