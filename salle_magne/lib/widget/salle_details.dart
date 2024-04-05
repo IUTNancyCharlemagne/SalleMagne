@@ -23,7 +23,7 @@ class _SalleDetailsState extends State<SalleDetails> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Cours de la salle ${widget.salle}'),
-          backgroundColor: colorOrangeTheme,
+          backgroundColor: colorTheme,
         ),
         body: FutureBuilder<List<sf.Appointment>>(
           future: fetchCourses(),
@@ -33,7 +33,7 @@ class _SalleDetailsState extends State<SalleDetails> {
                 itemBuilder: (BuildContext context, int index) {
                   return DecoratedBox(
                     decoration: BoxDecoration(
-                      color: index.isEven ? colorOrangeTheme : colorGrayTheme,
+                      color: index.isEven ? colorTheme : colorGrayTheme,
                     ),
                   );
                 },

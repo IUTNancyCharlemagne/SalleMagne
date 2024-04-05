@@ -6,6 +6,7 @@ import 'package:salle_magne/widget/cours_details.dart';
 import 'package:salle_magne/widget/navigation_bar_nonco.dart';
 import 'package:salle_magne/widget/salle_details.dart';
 import 'package:salle_magne/styles.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -23,9 +24,24 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text('Salle\' Magne', style: TextStyle(color: Colors.white)),
-        backgroundColor: colorOrangeTheme,
+        title: const Text(
+          'Salle\' Magne',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: colorTheme,
+        leading: IconButton(
+          icon: Image.asset('assets/images/logoIut.png'),
+          onPressed: () async {
+            // Ouvrir l'URL du site de l'IUT dans le navigateur
+            const url = 'https://www.iut-nancy.univ-lorraine.fr/';
+            if (await canLaunchUrl(url as Uri)) {
+              // Correction ici
+              await launchUrl(url as Uri); // Correction ici
+            } else {
+              throw 'Impossible d\'ouvrir $url';
+            }
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -95,17 +111,32 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(height: 30),
                 _selectedImage != null
-                    ? SizedBox(
-                        width: 300,
-                        height: 200,
-                        child: Image.file(_selectedImage!, fit: BoxFit.cover),
+                    ? ElevatedButton(
+                        onPressed: () async {
+                          String? extractedText =
+                              await _extractText(_selectedImage!);
+                          if (extractedText != null) {
+                            _validateAndNavigate(
+                              extractedText,
+                              'Veuillez entrer un numéro de salle.',
+                            );
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Cours de la salle ',
+                                style: TextStyle(fontWeight: FontWeight.w900),
+                              ),
+                              _extractTextView()
+                            ],
+                          ),
+                        ),
                       )
                     : const Text('Veuillez sélectionner une image'),
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: _extractTextView(),
-                ),
                 const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -191,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context, snapshot) {
           return Text(
             snapshot.data ?? '',
-            style: const TextStyle(fontWeight: FontWeight.w700),
+            style: const TextStyle(fontWeight: FontWeight.w900),
           );
         },
       );
@@ -207,10 +238,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String text = recognizedText.text;
     String textFiltered = text.replaceAll(RegExp(r'[^0-9]'), '');
+    if (textFiltered.length > 3) {
+      textFiltered = textFiltered.substring(0, 3);
+    }
+    ;
     textRecogniser.close();
 
     if (textFiltered.isEmpty) {
-      return "Aucun résultat interprété";
+      return null;
     } else {
       return textFiltered;
     }
