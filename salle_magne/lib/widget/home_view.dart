@@ -197,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
         break;
       case 2:
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const CalendarView()));
+            MaterialPageRoute(builder: (context) => CalendarView()));
         break;
       case 3:
         Navigator.push(context,
