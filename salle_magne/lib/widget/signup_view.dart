@@ -7,37 +7,38 @@ import 'package:salle_magne/widget/navigation_bar_nonco.dart';
 class SignUpView extends StatelessWidget {
   const SignUpView({Key? key}) : super(key: key);
 
+  // Définir l'URL de l'API d'authentification
+  static const String API_LOGIN =
+      'https://docketu.iutnc.univ-lorraine.fr:32499/api/connexion';
+
   Future<void> login(
       BuildContext context, String email, String password) async {
-    final Uri url =
-        Uri.parse('https://docketu.iutnc.univ-lorraine.fr:32499/api/connexion');
-
-    final Map<String, String> requestBody = {
-      'email': email,
-      'password': password,
-    };
-
     try {
-      print('Sending login request to: $url');
+      print('Tentative de connexion');
+      final String credentials = base64Encode(utf8.encode('$email:$password'));
+
       final response = await http.post(
-        url,
-        body: json.encode(requestBody),
-        headers: {'Content-Type': 'application/json'},
+        Uri.parse(API_LOGIN),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic $credentials',
+        },
       );
 
-      print('Response status code: ${response.statusCode}');
-      print('Response body: ${response.body}');
-
       if (response.statusCode == 200) {
+        // Connexion réussie
+        print('Connexion réussie');
+        // Vous pouvez ajouter ici la logique pour gérer la connexion réussie
       } else {
         // Affichage d'un message d'erreur en cas d'échec de la connexion
-        final responseData = json.decode(response.body);
+        print('Échec de la connexion. StatusCode: ${response.statusCode}');
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
               title: const Text('Erreur'),
-              content: Text(responseData['message']),
+              content: const Text(
+                  'Impossible de se connecter. Veuillez réessayer plus tard.'),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -51,6 +52,7 @@ class SignUpView extends StatelessWidget {
         );
       }
     } catch (error) {
+      // Gestion des erreurs lors de la connexion
       print('Erreur lors de la connexion : $error');
       showDialog(
         context: context,
@@ -60,14 +62,11 @@ class SignUpView extends StatelessWidget {
             content:
                 const Text('Une erreur s\'est produite lors de la connexion.'),
             actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('OK'),
-                ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('OK'),
               ),
             ],
           );
