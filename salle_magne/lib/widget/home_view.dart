@@ -8,7 +8,6 @@ import 'package:salle_magne/widget/salle_details.dart';
 
 import 'package:salle_magne/widget/calender_view.dart';
 import 'package:salle_magne/styles.dart';
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -22,8 +21,6 @@ class _MyHomePageState extends State<MyHomePage> {
   File? _selectedImage;
   final TextEditingController _salleController = TextEditingController();
   final TextEditingController _typeCoursController = TextEditingController();
-
-  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {

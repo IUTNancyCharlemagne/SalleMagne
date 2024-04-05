@@ -24,16 +24,6 @@ packages:
       sha256: "9c22c2f580e46a8f4a963013e562ae36e497e86269128162f3a1db72874fd06d"
       url: "https://pub.dev"
     source: hosted
-
-    version: "0.1.9"
-  calendar_view:
-    dependency: "direct main"
-    description:
-      name: calendar_view
-      sha256: "9c22c2f580e46a8f4a963013e562ae36e497e86269128162f3a1db72874fd06d"
-      url: "https://pub.dev"
-    source: hosted
-
     version: "1.1.0"
   characters:
     dependency: transitive
@@ -90,16 +80,6 @@ packages:
       sha256: "753e1d91644e39beddd0a4ed7e366f37a95e38cafb601c3b7496120ae0532f63"
       url: "https://pub.dev"
     source: hosted
-
-    version: "7.0.0"
-  dot_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: dot_navigation_bar
-      sha256: "753e1d91644e39beddd0a4ed7e366f37a95e38cafb601c3b7496120ae0532f63"
-      url: "https://pub.dev"
-    source: hosted
-
     version: "1.0.2"
   fake_async:
     dependency: transitive
@@ -219,56 +199,6 @@ packages:
       sha256: "861c6dd430123e58bb1154342345c5bfa36064120c8ec3dbc0d0b7522add1861"
       url: "https://pub.dev"
     source: hosted
-
-    version: "4.6.6"
-  google_maps:
-    dependency: transitive
-    description:
-      name: google_maps
-      sha256: "47eef3836b49bb030d5cb3afc60b8451408bf34cf753e571b645d6529eb4251a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.1.0"
-  google_maps_flutter:
-    dependency: "direct main"
-    description:
-      name: google_maps_flutter
-      sha256: "982c2e22ec78d32701bfbd351311e8579a4952035381ac66462c0af11003107b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.6.0"
-  google_maps_flutter_android:
-    dependency: transitive
-    description:
-      name: google_maps_flutter_android
-      sha256: "256b3c974e415bd17555ceff76a5d0badd2cbfd29febfc23070993358f639550"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.7.0"
-  google_maps_flutter_ios:
-    dependency: transitive
-    description:
-      name: google_maps_flutter_ios
-      sha256: "6c50bce26ff73079b4401de5bfe77e89d89138897b9dcc6bdfbc7ada842f2bc1"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.5.2"
-  google_maps_flutter_platform_interface:
-    dependency: transitive
-    description:
-      name: google_maps_flutter_platform_interface
-      sha256: "167af879da4d004cd58771f1469b91dcc3b9b0a2c5334cc6bf71fd41d4b35403"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.6.0"
-  google_maps_flutter_web:
-    dependency: transitive
-    description:
-      name: google_maps_flutter_web
-      sha256: "861c6dd430123e58bb1154342345c5bfa36064120c8ec3dbc0d0b7522add1861"
-      url: "https://pub.dev"
-    source: hosted
-
     version: "0.5.6+2"
   google_mlkit_commons:
     dependency: transitive
@@ -381,9 +311,7 @@ packages:
       sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
       url: "https://pub.dev"
     source: hosted
-
     version: "0.19.0"
-
   js:
     dependency: transitive
     description:
@@ -404,18 +332,18 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
-      sha256: "3f87a60e8c63aecc975dda1ceedbc8f24de75f09e4856ea27daf8958f2f0ce05"
+      sha256: "7f0df31977cb2c0b88585095d168e689669a2cc9b97c309665e3386f3e9d341a"
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.5"
+    version: "10.0.4"
   leak_tracker_flutter_testing:
     dependency: transitive
     description:
       name: leak_tracker_flutter_testing
-      sha256: "932549fb305594d82d7183ecd9fa93463e9914e1b67cacc34bc40906594a1806"
+      sha256: "06e98f569d004c1315b991ded39924b21af84cf14cc94791b8aea337d25b57f8"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.5"
+    version: "3.0.3"
   leak_tracker_testing:
     dependency: transitive
     description:
@@ -444,10 +372,10 @@ packages:
     dependency: transitive
     description:
       name: material_color_utilities
-      sha256: f7142bb1154231d7ea5f96bc7bde4bda2a0945d2806bb11670e30b850d56bdec
+      sha256: "0e0a020085b65b6083975e499759762399b4475f766c21668c4ecca34ea74e5a"
       url: "https://pub.dev"
     source: hosted
-    version: "0.11.1"
+    version: "0.8.0"
   meta:
     dependency: transitive
     description:
@@ -481,7 +409,6 @@ packages:
     source: hosted
     version: "2.1.8"
   sanitize_html:
-
     dependency: transitive
     description:
       name: sanitize_html
@@ -490,14 +417,13 @@ packages:
     source: hosted
     version: "2.1.0"
   simple_gesture_detector:
-
     dependency: transitive
     description:
-      name: sanitize_html
-      sha256: "12669c4a913688a26555323fb9cec373d8f9fbe091f2d01c40c723b33caa8989"
+      name: simple_gesture_detector
+      sha256: ba2cd5af24ff20a0b8d609cec3f40e5b0744d2a71804a2616ae086b9c19d19a3
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "0.2.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -544,7 +470,6 @@ packages:
     source: hosted
     version: "1.2.0"
   syncfusion_flutter_calendar:
-
     dependency: "direct main"
     description:
       name: syncfusion_flutter_calendar
@@ -576,31 +501,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
-
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_calendar
-      sha256: "7dc2c61d8b22b8b9f0affeea6649a13f38bdf3a154aa1c383ad123601f2023d3"
-      url: "https://pub.dev"
-    source: hosted
-    version: "25.1.38"
-  syncfusion_flutter_core:
-    dependency: transitive
-    description:
-      name: syncfusion_flutter_core
-      sha256: "9fae07d8d1f1f66c61ad40cce8f85c02b8a3506ff0c3eae8ace0fd1d504b1ea5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "25.1.38"
-  syncfusion_flutter_datepicker:
-    dependency: transitive
-    description:
-      name: syncfusion_flutter_datepicker
-      sha256: "99d81d3fff8fd79cb8589b67a006faa718afde6d2366d74d770fc3fd9a434531"
-      url: "https://pub.dev"
-    source: hosted
-    version: "25.1.38"
-
   term_glyph:
     dependency: transitive
     description:
@@ -642,7 +542,6 @@ packages:
     source: hosted
     version: "6.2.5"
   url_launcher_android:
-
     dependency: transitive
     description:
       name: url_launcher_android
@@ -659,65 +558,6 @@ packages:
     source: hosted
     version: "6.2.5"
   url_launcher_linux:
-    dependency: transitive
-    description:
-      name: url_launcher_linux
-      sha256: ab360eb661f8879369acac07b6bb3ff09d9471155357da8443fd5d3cf7363811
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.1"
-  url_launcher_macos:
-    dependency: transitive
-    description:
-      name: url_launcher_macos
-      sha256: b7244901ea3cf489c5335bdacda07264a6e960b1c1b1a9f91e4bc371d9e68234
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.0"
-  url_launcher_platform_interface:
-    dependency: transitive
-    description:
-      name: url_launcher_platform_interface
-      sha256: "552f8a1e663569be95a8190206a38187b531910283c3e982193e4f2733f01029"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.2"
-  url_launcher_web:
-    dependency: transitive
-    description:
-      name: url_launcher_web
-      sha256: "3692a459204a33e04bc94f5fb91158faf4f2c8903281ddd82915adecdb1a901d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.0"
-  url_launcher_windows:
-    dependency: transitive
-    description:
-      name: url_launcher_windows
-      sha256: ecf9725510600aa2bb6d7ddabe16357691b6d2805f66216a97d1b881e21beff7
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.1"
-  vector_math:
-
-    dependency: transitive
-    description:
-      name: url_launcher_android
-      sha256: d4ed0711849dd8e33eb2dd69c25db0d0d3fdc37e0a62e629fe32f57a22db2745
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.3.0"
-  url_launcher_ios:
-    dependency: transitive
-    description:
-
-      name: url_launcher_ios
-      sha256: "9149d493b075ed740901f3ee844a38a00b33116c7c5c10d7fb27df8987fb51d5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.2.5"
-  url_launcher_linux:
-
     dependency: transitive
     description:
       name: url_launcher_linux
