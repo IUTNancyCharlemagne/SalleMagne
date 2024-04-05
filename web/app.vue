@@ -57,5 +57,8 @@ const logoutAndRedirect = () => {
   delTokenUser();
   reloadNuxtApp();
 };
+  useHead({
+    title: 'Salle\'Magne',
+  });
 
 </script>
