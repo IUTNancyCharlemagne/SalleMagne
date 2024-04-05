@@ -16,34 +16,33 @@ export default {
   data() {
     return {
       CoursPrevu: false,
-      loading : true,
+      loading: true,
       error: false,
       Cours: [],
       userConnected: false,
       salleFav: false,
-      userLoad : false
+      userLoad: false
 
     };
   },
   methods: {
 
-    async initUserData(){
-      this.userConnected = getTokenUser()!==null;
-      if(this.userConnected) {
+    async initUserData() {
+      this.userConnected = getTokenUser() !== null;
+      if (this.userConnected) {
         this.salleFav = await checkFavori(this.$route.params.location)
       }
       this.userLoad = true;
     },
 
 
-
     async fetchEDT() {
       try {
-      const location = this.$route.params.location;
-      const response = await searchSalleByText(location)
-        if(response===false)this.error= true;
-      this.CoursPrevu = response.length > 0;
-      this.Cours = response;
+        const location = this.$route.params.location;
+        const response = await searchSalleByText(location)
+        if (response === false) this.error = true;
+        this.CoursPrevu = response.length > 0;
+        this.Cours = response;
         console.log(response)
       } catch (error) {
         this.error = true;
@@ -52,14 +51,14 @@ export default {
       this.loading = false;
     },
 
-    async addToFav(){
-     const response =  await addFavoris(this.$route.params.location)
+    async addToFav() {
+      const response = await addFavoris(this.$route.params.location)
       if (response) {
         this.salleFav = true;
       }
     },
 
-    async removeFromFav(){
+    async removeFromFav() {
       const response = await deleteFavoris(this.$route.params.location)
       if (response) {
         this.salleFav = false;
@@ -79,48 +78,62 @@ export default {
 
 </script>
 
-  <template>
+<template>
 
-    <div v-if="!loading && CoursPrevu && !error">
-      <h1>
-        Emploi du temps de la salle {{ $route.params.location }}
-      </h1>
-      <div v-if="userLoad && userConnected">
-        <div v-if="!salleFav">
-        <button @click="addToFav">Ajouter aux favoris</button>
-        </div>
-        <div v-if="salleFav">
-        <button @click="removeFromFav">Retirer des favoris</button>
-          </div>
+  <div v-if="!loading && CoursPrevu && !error" class="text-center mt-4">
+    <div class="flex items-center justify-center gap-2">
+    <h1 class="text-3xl font-bold mb-4">
+      Emploi du temps de la salle {{ $route.params.location }}
+    </h1>
+    <div v-if="userLoad && userConnected" class="mb-4">
+      <div v-if="!salleFav">
+        <button @click="addToFav" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Ajouter aux favoris
+        </button>
       </div>
-
-
-
-      <Calendar :event="Cours"/>
+      <div v-if="salleFav">
+        <button @click="removeFromFav" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+          Retirer des favoris
+        </button>
+      </div>
     </div>
+    </div>
+    <Calendar :event="Cours"/>
+  </div>
 
 
-
-    <div v-if="!CoursPrevu && !loading && !error">
-      Aucun cours n'est prévu dans cette salle pour le moment
-      <NuxtLink to="/SearchSalle">
+    <!-- Div pour l'affichage lorsqu'aucun cours n'est prévu -->
+  <div class="flex justify-center items-center h-[20vh]">
+    <div v-if="!CoursPrevu && !loading && !error" class="w-full sm:w-1/2 p-4 bg-white rounded-lg shadow mx-2 ">
+      <p class="text-lg text-gray-700 mb-4">Aucun cours n'est prévu dans cette salle pour le moment</p>
+      <NuxtLink to="/" class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
         Rechercher une autre salle
       </NuxtLink>
     </div>
+  </div>
 
-    <div v-if="error && !loading">
-      Une erreur est survenue lors de la recherche de la salle
-      <NuxtLink to="/SearchSalle">
+
+    <!-- Div pour l'affichage en cas d'erreur -->
+  <div class="flex justify-center items-center h-[20vh]">
+    <div v-if="error && !loading" class="w-full sm:w-1/2 p-4 bg-white rounded-lg shadow mx-2">
+      <p class="text-lg text-gray-700 mb-4">Une erreur est survenue lors de la recherche de la salle</p>
+      <NuxtLink to="/" class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
         Rechercher une autre salle
       </NuxtLink>
     </div>
+  </div>
 
-    <div v-if="loading">
-      <VueSpinner class="" size="100" color="lightBlue"/>
-      <label>Chargement...</label>
+
+    <!-- Div pour l'affichage pendant le chargement -->
+  <div class="flex justify-center items-center h-[20vh]">
+    <div v-if="loading" class="flex flex-col items-center justify-center w-full sm:w-1/2 p-4 bg-white rounded-lg shadow mx-2">
+      <VueSpinner class="mb-2" size="100" color="lightBlue"/>
+      <label class="mb-4">Chargement...</label>
     </div>
+  </div>
 
 
-  </template>
+
+</template>
 
 
