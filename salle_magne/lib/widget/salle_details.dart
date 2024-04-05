@@ -1,30 +1,21 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:salle_magne/widget/navigation_bar_nonco.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
-
-class SalleCours {
-  final String name;
-  final DateTime date;
-
-  SalleCours({required this.name, required this.date});
-}
+import 'package:salle_magne/widget/event.dart';
+import 'package:salle_magne/widget/navigation_bar_nonco.dart';
 
 class SalleDetails extends StatefulWidget {
   final String salle;
 
-  const SalleDetails({super.key, required this.salle});
+  const SalleDetails({Key? key, required this.salle}) : super(key: key);
 
   @override
   _SalleDetailsState createState() => _SalleDetailsState();
 }
 
 class _SalleDetailsState extends State<SalleDetails> {
-  final CalendarFormat _calendarFormat = CalendarFormat.week;
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-  Map<DateTime, List<SalleCours>> _events = {};
+  List<Event>? _events;
+  late List<DateTime> _availableDates = [];
 
   @override
   void initState() {
@@ -33,84 +24,152 @@ class _SalleDetailsState extends State<SalleDetails> {
   }
 
   Future<void> fetchSalleDetails(String salle) async {
-    final response = await http.get(Uri.parse(
-        'http://docketu.iutnc.univ-lorraine.fr:32495/api/salles?location=$salle'));
+    try {
+      final response = await http.get(Uri.parse(
+          'http://docketu.iutnc.univ-lorraine.fr:32495/api/salles?location=$salle'));
 
-    if (response.statusCode == 200) {
-      final List<dynamic> courses = json.decode(response.body);
-      print(courses); // Pour vérifier les données reçues
-
-      setState(() {
-        _events = {}; // Réinitialiser la liste des événements
-        for (var course in courses) {
-          // Extraire les détails du cours depuis le JSON
-          String name = course['summary'];
-          DateTime startDate = DateTime.parse(course['startDate']['fullDate']);
-          // Créer un objet SalleCours
-          SalleCours salleCours = SalleCours(name: name, date: startDate);
-          // Ajouter l'objet à la liste des événements
-          if (_events.containsKey(startDate)) {
-            _events[startDate]!.add(salleCours);
-          } else {
-            _events[startDate] = [salleCours];
-          }
-        }
-      });
-    } else {
-      throw Exception(
-          'Echec du chargement des détails de la salle ${widget.salle}');
+      if (response.statusCode == 200) {
+        final List<dynamic> eventData = json.decode(response.body);
+        setState(() {
+          _events = parseEventsFromAPI(eventData);
+          _availableDates = extractAvailableDates(eventData);
+        });
+      } else {
+        throw Exception(
+            'Echec du chargement des détails de la salle ${widget.salle}');
+      }
+    } catch (error) {
+      print('Erreur lors de la récupération des détails de la salle: $error');
     }
+  }
+
+  List<Event> parseEventsFromAPI(List<dynamic> eventData) {
+    List<Event> events = [];
+    for (var data in eventData) {
+      String summary = data['summary'];
+
+      DateTime startDate = parseDate(data['startDate']['date']);
+      DateTime endDate = parseDate(data['endDate']['date']);
+
+      // Extraire les heures de début et de fin
+      DateTime startTime = startDate.add(Duration(
+          hours: int.parse(data['startDate']['hour'].split(':')[0]),
+          minutes: int.parse(data['startDate']['hour'].split(':')[1])));
+      DateTime endTime = endDate.add(Duration(
+          hours: int.parse(data['endDate']['hour'].split(':')[0]),
+          minutes: int.parse(data['endDate']['hour'].split(':')[1])));
+
+      Event event = Event(
+        name: summary,
+        date: startDate,
+        startTime: startTime,
+        endTime: endTime,
+      );
+      events.add(event);
+    }
+    return events;
+  }
+
+  List<DateTime> extractAvailableDates(List<dynamic> eventData) {
+    Set<DateTime> dates = {};
+    for (var data in eventData) {
+      DateTime startDate = parseDate(data['startDate']['date']);
+      dates.add(startDate);
+    }
+    return dates.toList();
+  }
+
+  DateTime parseDate(String dateString) {
+    // Séparer la chaîne de date en jour, mois et année
+    List<String> parts = dateString.split('/');
+    // Convertir chaque partie en entier
+    int day = int.parse(parts[0]);
+    int month = int.parse(parts[1]);
+    int year = int.parse(parts[2]);
+    // Créer et retourner un objet DateTime
+    return DateTime(year, month, day);
   }
 
   @override
   Widget build(BuildContext context) {
+    String salleDetails = 'Détails : ';
+    if (widget.salle.length > 2) {
+      salleDetails += '${widget.salle[0]}ème étage , salle ${widget.salle}';
+    } else {
+      salleDetails += 'rez-de-chaussée, salle ${widget.salle}';
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Détails de la salle ${widget.salle}'),
+        title: Text(
+          salleDetails,
+          style: const TextStyle(fontSize: 16),
+        ),
         backgroundColor: Colors.grey,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            TableCalendar(
-              firstDay: DateTime.now().subtract(const Duration(days: 365)),
-              lastDay: DateTime.now().add(const Duration(days: 365)),
-              focusedDay: _focusedDay,
-              calendarFormat: _calendarFormat,
-              selectedDayPredicate: (day) {
-                return isSameDay(_selectedDay, day);
-              },
-              onDaySelected: (selectedDay, focusedDay) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay;
-                });
-              },
-              eventLoader: (day) {
-                return _events[day] ?? [];
-              },
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _events[_selectedDay]?.length ?? 0,
-                itemBuilder: (context, index) {
-                  final List<SalleCours>? courses = _events[_selectedDay];
-                  if (courses != null) {
-                    final course = courses[index];
-                    return ListTile(
-                      title: Text(course.name),
-                      subtitle: Text(course.date.toString()),
-                    );
-                  } else {
-                    return SizedBox(); // Ou tout autre widget par défaut si _selectedDay est null
-                  }
-                },
+      body: _events != null
+          ? Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: _availableDates
+                      .map((date) => buildDateCard(date))
+                      .toList(),
+                ),
               ),
+            )
+          : const Center(
+              child: CircularProgressIndicator(),
             ),
-          ],
+      bottomNavigationBar: const NavigationBarNonCo(),
+    );
+  }
+
+  Widget buildDateCard(DateTime date) {
+    List<Event> eventsForDate =
+        _events!.where((event) => event.date == date).toList();
+
+    return SizedBox(
+      width: 400, // Largeur fixe pour chaque carte
+      child: Card(
+        elevation: 4,
+        margin: const EdgeInsets.all(8),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Date: ${date.day}/${date.month}/${date.year}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 8),
+              ...eventsForDate.map((event) => buildEventCard(event)).toList(),
+            ],
+          ),
         ),
       ),
-      bottomNavigationBar: const NavigationBarNonCo(),
+    );
+  }
+
+  Widget buildEventCard(Event event) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Nom du cours: ${event.name}',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(
+              'Heure de début: ${event.startTime.hour}:${event.startTime.minute}'),
+          Text('Heure de fin: ${event.endTime.hour}:${event.endTime.minute}'),
+        ],
+      ),
     );
   }
 }

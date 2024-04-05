@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:salle_magne/widget/navigation_bar_nonco.dart'; // Importez votre widget NavigationBarNonCo
 
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
@@ -19,72 +20,77 @@ class LoginView extends StatelessWidget {
         backgroundColor: Colors.grey,
         title: const Text('S\'inscrire sur Salle\'magne'),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 300,
-                child: TextFormField(
-                  controller: nomController,
-                  decoration: const InputDecoration(
-                    labelText: 'Nom',
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 20.0, bottom: 20.0, right: 20.0, top: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 300,
+                  child: TextFormField(
+                    controller: nomController,
+                    decoration: const InputDecoration(
+                      labelText: 'Nom',
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 300,
-                child: TextFormField(
-                  controller: prenomController,
-                  decoration: const InputDecoration(
-                    labelText: 'Prénom',
+                SizedBox(
+                  width: 300,
+                  child: TextFormField(
+                    controller: prenomController,
+                    decoration: const InputDecoration(
+                      labelText: 'Prénom',
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 300,
-                child: TextFormField(
-                  controller: emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
+                SizedBox(
+                  width: 300,
+                  child: TextFormField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 300,
-                child: TextFormField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Mot de passe',
+                SizedBox(
+                  width: 300,
+                  child: TextFormField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Mot de passe',
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 300,
-                child: TextFormField(
-                  controller: confirmPasswordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Confirmer le mot de passe',
+                SizedBox(
+                  width: 300,
+                  child: TextFormField(
+                    controller: confirmPasswordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Confirmer le mot de passe',
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await _register(context);
-                  },
-                  child: const Text('S\'inscrire'),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await _register(context);
+                    },
+                    child: const Text('S\'inscrire'),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
+      bottomNavigationBar:
+          const NavigationBarNonCo(), // Ajoutez cette ligne pour inclure votre bottom navigation bar
     );
   }
 

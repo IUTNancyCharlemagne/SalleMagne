@@ -9,7 +9,7 @@ class AppNavigation extends StatelessWidget {
       title: 'Salle\'magne',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepOrangeAccent,
+          seedColor: Colors.blue,
           secondary: Colors.red,
           primary: colorGrayTheme,
         ),

@@ -12,15 +12,15 @@ dependencies:
     sdk: flutter
 
   image_picker: ^1.0.7
-  table_calendar: ^3.0.8
   cupertino_icons: ^1.0.6
-
   dot_navigation_bar:
-
   google_maps_flutter: ^2.2.0
   google_mlkit_text_recognition: ^0.11.0
   url_launcher: ^6.2.5
   http: ^1.2.1
+  syncfusion_flutter_calendar: ^25.1.38
+  calendar_view: ^1.1.0
+  table_calendar: ^3.1.1
 
 dev_dependencies:
   flutter_test:
