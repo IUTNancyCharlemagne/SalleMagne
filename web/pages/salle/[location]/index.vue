@@ -106,7 +106,7 @@ export default {
   <div class="flex justify-center items-center h-[20vh]">
     <div v-if="!CoursPrevu && !loading && !error" class="w-full sm:w-1/2 p-4 bg-white rounded-lg shadow mx-2 ">
       <p class="text-lg text-gray-700 mb-4">Aucun cours n'est prévu dans cette salle pour le moment</p>
-      <NuxtLink to="/" class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
+      <NuxtLink to="/searchSalle" class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
         Rechercher une autre salle
       </NuxtLink>
     </div>
@@ -117,7 +117,7 @@ export default {
   <div class="flex justify-center items-center h-[20vh]">
     <div v-if="error && !loading" class="w-full sm:w-1/2 p-4 bg-white rounded-lg shadow mx-2">
       <p class="text-lg text-gray-700 mb-4">Une erreur est survenue lors de la recherche de la salle</p>
-      <NuxtLink to="/" class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
+      <NuxtLink to="/searchSalle" class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
         Rechercher une autre salle
       </NuxtLink>
     </div>
