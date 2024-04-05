@@ -1,4 +1,4 @@
-import {getTokenUser} from "~/utils/functions/tokenUser.js";
+import {getTokenUser} from "~/utils/functions/tokenUser.ts";
 
 export const checkFavori = async (id) => {
     try {
@@ -11,8 +11,9 @@ export const checkFavori = async (id) => {
         });
 
         if (res.ok) {
+            console.log(id)
             const data = await res.json();
-            return data.data.some(item => item.id === id);
+            return data.data.some(item => item.salle === parseInt(id));
         } else {
             return false;
         }

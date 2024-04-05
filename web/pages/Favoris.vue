@@ -1,5 +1,6 @@
 <template>
-  <div class="p-6 bg-gray-100 min-h-screen">
+  <div class="p-6 bg-gray-100 h-[8vh]">
+    <div class="pb-7">
     <h1 class="text-4xl font-bold mb-4">Favoris</h1>
     <h2 class="text-2xl mb-6">Trouvez ici vos salles favorites :</h2>
     <button @click="selectAll"  class=" px-1 py-1 text-lg text-white bg-gray-700 rounded hover:bg-gray-600">
@@ -9,6 +10,7 @@
       class=" mx-1 px-1 py-1 text-lg text-white bg-red-700 rounded hover:bg-red-600">
       Supprimer
     </button>
+    <p v-if="error !== ''" class="text-red-500 text-xl py-5">{{ error }}</p>
     <ul>
       <li v-for="favori in favoris" :key="favori.salle" class="mb-2">
         <input type="checkbox" :value="favori" v-model="selectedFavoris" class="mr-2">
@@ -18,11 +20,10 @@
         </NuxtLink>
       </li>
     </ul>
-    
+    </div>
   </div>
 </template>
 <script>
-import axios from 'axios';
 import { API_FAVORIS } from '~/utils/api_const';
 import authMiddleware from "~/middleware/auth";
 import { getTokenUser } from "~/utils/functions/tokenUser";
@@ -36,6 +37,7 @@ export default {
     return {
       favoris: [],
       selectedFavoris: [],
+      error : '',
     };
   },
   created() {
@@ -50,36 +52,47 @@ export default {
   }
 },
     loadFavoris() {
-      const api = axios.create({
-        baseURL: API_FAVORIS,
+      this.error = "";
+      fetch(API_FAVORIS, {
+        method: 'GET',
         headers: {
-          'Authorization': `Bearer ` + getTokenUser(),
+          'Authorization': `Bearer ${getTokenUser()}`,
         }
-      });
-
-      api.get('/')
-        .then(response => {
-          this.favoris = response.data.data;
-          console.log(this.favoris);
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      })
+          .then(response => {
+            if (!response.ok) {
+              this.error = 'Veuillez vous reconnecter';
+            }
+            return response.json();
+          })
+          .then(data => {
+            this.favoris = data.data;
+            console.log(this.favoris);
+          })
+          .catch(error => {
+            this.error = 'Veuillez vous reconnecter';
+            console.error('Erreur :', error);
+          });
     },
     async deleteSelectedFavoris() {
-      const api = axios.create({
-        baseURL: API_FAVORIS,
-        headers: {
-          'Authorization': `Bearer ` + getTokenUser(),
-        }
-      });
-
       for (const favori of this.selectedFavoris) {
-        await api.delete('/', { data: { salle: favori.salle } }).catch(error => {
-          console.error('Error deleting favori:', error.response);
-        });
-      }
+        try {
+          await fetch(API_FAVORIS, {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${getTokenUser()}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              salle: favori.salle
+            })
+          });
 
+          console.log('Favori supprimé :', favori);
+        } catch (error) {
+          console.error('Erreur lors de la suppression du favori :', error);
+        }
+      }
       this.selectedFavoris = [];
       this.loadFavoris();
     },

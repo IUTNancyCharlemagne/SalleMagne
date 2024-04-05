@@ -2,6 +2,10 @@
 import {searchSalleByText} from "~/utils/functions/searchSalleByText.js";
 import {VueSpinner} from 'vue3-spinners';
 import Calendar from "~/components/Calendar.vue";
+import {getTokenUser} from "~/utils/functions/tokenUser.ts";
+import {checkFavori} from "~/utils/functions/checkFavori.js";
+import {addFavoris} from "~/utils/functions/addFavoris.js";
+import {deleteFavoris} from "~/utils/functions/deleteFavoris.js";
 
 
 export default {
@@ -15,9 +19,24 @@ export default {
       loading : true,
       error: false,
       Cours: [],
+      userConnected: false,
+      salleFav: false,
+      userLoad : false
+
     };
   },
   methods: {
+
+    async initUserData(){
+      this.userConnected = getTokenUser()!==null;
+      if(this.userConnected) {
+        this.salleFav = await checkFavori(this.$route.params.location)
+      }
+      this.userLoad = true;
+    },
+
+
+
     async fetchEDT() {
       try {
       const location = this.$route.params.location;
@@ -34,10 +53,17 @@ export default {
     },
 
     async addToFav(){
-
+     const response =  await addFavoris(this.$route.params.location)
+      if (response) {
+        this.salleFav = true;
+      }
     },
 
     async removeFromFav(){
+      const response = await deleteFavoris(this.$route.params.location)
+      if (response) {
+        this.salleFav = false;
+      }
 
     },
 
@@ -45,6 +71,7 @@ export default {
   },
   mounted() {
     this.fetchEDT();
+    this.initUserData();
   }
 
 }
@@ -58,6 +85,17 @@ export default {
       <h1>
         Emploi du temps de la salle {{ $route.params.location }}
       </h1>
+      <div v-if="userLoad && userConnected">
+        <div v-if="!salleFav">
+        <button @click="addToFav">Ajouter aux favoris</button>
+        </div>
+        <div v-if="salleFav">
+        <button @click="removeFromFav">Retirer des favoris</button>
+          </div>
+      </div>
+
+
+
       <Calendar :event="Cours"/>
     </div>
 
@@ -78,7 +116,7 @@ export default {
     </div>
 
     <div v-if="loading">
-      <VueSpinner class="" size="100" color="Grey"/>
+      <VueSpinner class="" size="100" color="lightBlue"/>
       <label>Chargement...</label>
     </div>
 
