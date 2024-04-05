@@ -1,19 +1,20 @@
-import {API_FAVORIS} from "../api_const";
+import { API_FAVORIS } from "../api_const";
 import {getTokenUser} from "~/utils/functions/tokenUser.ts";
 
-export async function deleteFavoris(salle) {
+export async function addFavoris(salle) {
   try {
     return await $fetch(API_FAVORIS, {
-      method: "DELETE",
+      method: "POST",
       headers: {
         'Content-Type': 'application/json',
         authorization: 'Bearer ' + getTokenUser()
-
       },
-      body: JSON.stringify({salle})
+
+
+      body: JSON.stringify({ salle })
     });
   } catch (error) {
-    console.error('Error deleting favori:', error);
+    console.error('Error adding :', error);
     return false;
   }
 }

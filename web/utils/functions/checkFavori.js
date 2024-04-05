@@ -1,4 +1,4 @@
-import {getTokenUser} from "~/utils/functions/tokenUser.js";
+import {getTokenUser} from "~/utils/functions/tokenUser.ts";
 
 export const checkFavori = async (id) => {
     try {
