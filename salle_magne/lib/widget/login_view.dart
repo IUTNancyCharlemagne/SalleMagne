@@ -38,15 +38,19 @@ class LoginView extends StatelessWidget {
                           width: 300,
                           child: TextFormField(
                             controller: nomController,
-                            style: const TextStyle(color: Colors.blue),
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 62, 165, 250)),
                             decoration: const InputDecoration(
                               labelText: 'Nom',
-                              labelStyle: TextStyle(color: Colors.blue),
+                              labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 62, 165, 250)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 62, 165, 250)),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 6, 46, 78)),
                               ),
                             ),
                           ),
@@ -56,15 +60,19 @@ class LoginView extends StatelessWidget {
                           width: 300,
                           child: TextFormField(
                             controller: prenomController,
-                            style: const TextStyle(color: Colors.blue),
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 62, 165, 250)),
                             decoration: const InputDecoration(
                               labelText: 'Prénom',
-                              labelStyle: TextStyle(color: Colors.blue),
+                              labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 62, 165, 250)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 62, 165, 250)),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 6, 46, 78)),
                               ),
                             ),
                           ),
@@ -74,34 +82,42 @@ class LoginView extends StatelessWidget {
                           width: 300,
                           child: TextFormField(
                             controller: emailController,
-                            style: const TextStyle(color: Colors.blue),
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 62, 165, 250)),
                             decoration: const InputDecoration(
                               labelText: 'Email',
-                              labelStyle: TextStyle(color: Colors.blue),
+                              labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 62, 165, 250)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 62, 165, 250)),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 6, 46, 78)),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         SizedBox(
                           width: 300,
                           child: TextFormField(
                             controller: passwordController,
                             obscureText: true,
-                            style: const TextStyle(color: Colors.blue),
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 62, 165, 250)),
                             decoration: const InputDecoration(
                               labelText: 'Mot de passe',
-                              labelStyle: TextStyle(color: Colors.blue),
+                              labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 62, 165, 250)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 62, 165, 250)),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 6, 46, 78)),
                               ),
                             ),
                           ),
@@ -112,15 +128,19 @@ class LoginView extends StatelessWidget {
                           child: TextFormField(
                             controller: confirmPasswordController,
                             obscureText: true,
-                            style: const TextStyle(color: Colors.blue),
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 62, 165, 250)),
                             decoration: const InputDecoration(
                               labelText: 'Confirmer le mot de passe',
-                              labelStyle: TextStyle(color: Colors.blue),
+                              labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 62, 165, 250)),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 62, 165, 250)),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.blue),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 6, 46, 78)),
                               ),
                             ),
                           ),

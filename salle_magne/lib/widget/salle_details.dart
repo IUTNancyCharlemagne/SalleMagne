@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:salle_magne/widget/event.dart';
 import 'package:salle_magne/widget/navigation_bar_nonco.dart';
-import 'package:http/http.dart' as http;
 
 class SalleDetails extends StatefulWidget {
   final String salle;
@@ -166,7 +165,7 @@ class _SalleDetailsState extends State<SalleDetails> {
         children: [
           Text(
             'Nom du cours: ${event.name}',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(
               'Heure de début: ${event.startTime.hour}:${event.startTime.minute}'),

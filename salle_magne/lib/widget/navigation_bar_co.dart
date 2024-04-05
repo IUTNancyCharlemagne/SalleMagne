@@ -68,7 +68,7 @@ class NavigationBarCo extends StatelessWidget {
       case 3:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const SignUpView()),
+          MaterialPageRoute(builder: (context) => SignUpView()),
         );
         break;
     }

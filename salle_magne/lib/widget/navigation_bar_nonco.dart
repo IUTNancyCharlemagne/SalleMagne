@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:salle_magne/widget/calender_view.dart';
 import 'package:salle_magne/widget/home_view.dart';
+import 'package:salle_magne/styles.dart';
 import 'package:salle_magne/widget/login_view.dart';
 import 'package:salle_magne/widget/signup_view.dart';
-import 'package:salle_magne/styles.dart';
 
 class NavigationBarNonCo extends StatelessWidget {
   const NavigationBarNonCo({Key? key});
@@ -68,7 +68,7 @@ class NavigationBarNonCo extends StatelessWidget {
       case 3:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const SignUpView()),
+          MaterialPageRoute(builder: (context) => SignUpView()),
         );
         break;
     }
