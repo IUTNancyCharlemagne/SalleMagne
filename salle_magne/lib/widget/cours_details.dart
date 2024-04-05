@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salle_magne/widget/navigation_bar_nonco.dart';
 
 class CoursDetails extends StatelessWidget {
   final String cours;
@@ -19,6 +20,8 @@ class CoursDetails extends StatelessWidget {
           style: TextStyle(fontSize: 20),
         ),
       ),
+      bottomNavigationBar:
+          const NavigationBarNonCo(), // Ajoutez la barre de navigation en bas de la page
     );
   }
 }

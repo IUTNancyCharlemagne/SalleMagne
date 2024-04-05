@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:salle_magne/widget/cours_details.dart';
+import 'package:salle_magne/widget/navigation_bar_nonco.dart';
 import 'package:salle_magne/widget/salle_details.dart';
+
 import 'package:salle_magne/widget/calender_view.dart';
 import 'package:salle_magne/styles.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 
+
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -26,9 +29,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
           title: const Text('Salle\' Magne',
               style: TextStyle(color: Colors.white)),
           backgroundColor: colorOrangeTheme),
+
       body: SingleChildScrollView(
         child: SafeArea(
           child: Center(
@@ -56,48 +61,65 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ],
+
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                        alignment: Alignment.centerRight,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _validateAndNavigate(
-                              _salleController.text,
-                              'Veuillez entrer un numéro de salle.',
-                            );
-                          },
-                          child: const Text('Valider'),
-                        ))),
+                  padding: const EdgeInsets.all(8.0),
+
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _validateAndNavigate(
+                          _typeCoursController.text,
+                          'Veuillez entrer un type de cours.',
+                        );
+                      },
+                      child: const Text('Valider'),
+
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 12),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ElevatedButton(
-                    onPressed: _pickImageFromGallery,
-                    child: const Icon(Icons.image),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20.0, bottom: 10.0),
+                  child: Text(
+                    'Recherche via une image',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(width: 30),
-                  ElevatedButton(
-                    onPressed: _pickImageFromCamera,
-                    child: const Icon(Icons.photo_camera),
-                  ),
-                ]),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _pickImageFromGallery,
+                      child: const Icon(Icons.image),
+
+                    ),
+                    const SizedBox(width: 30),
+                    ElevatedButton(
+                      onPressed: _pickImageFromCamera,
+                      child: const Icon(Icons.photo_camera),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 30),
                 _selectedImage != null
                     ? SizedBox(
                         width: 300,
                         height: 200,
-                        child: Image.file(_selectedImage!, fit: BoxFit.cover))
+                        child: Image.file(_selectedImage!, fit: BoxFit.cover),
+                      )
                     : const Text('Veuillez sélectionner une image'),
                 const SizedBox(height: 20),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: _exctractTextView(),
+                  child: _extractTextView(),
                 ),
                 const SizedBox(height: 30),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -119,6 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0, top: 8.0),
                   child: Align(
@@ -138,35 +161,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
+
       ),
-      extendBody: true,
-      bottomNavigationBar: DotNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-            navigate(index);
-          });
-        },
-        items: [
-          DotNavigationBarItem(
-            icon: const Icon(Icons.home, size: 20),
-            selectedColor: colorOrangeTheme,
-          ),
-          DotNavigationBarItem(
-            icon: const Icon(Icons.star, size: 20),
-            selectedColor: colorOrangeTheme,
-          ),
-          DotNavigationBarItem(
-            icon: const Icon(Icons.calendar_today, size: 20),
-            selectedColor: colorOrangeTheme,
-          ),
-          DotNavigationBarItem(
-            icon: const Icon(Icons.square, size: 20),
-            selectedColor: colorOrangeTheme,
-          ),
-        ],
-      ),
+      bottomNavigationBar: const NavigationBarNonCo(),
     );
   }
 
@@ -221,16 +218,17 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Widget _exctractTextView() {
+  Widget _extractTextView() {
     if (_selectedImage != null) {
       return FutureBuilder(
-          future: _extractText(_selectedImage!),
-          builder: (context, snapshot) {
-            return Text(
-              snapshot.data ?? '',
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            );
-          });
+        future: _extractText(_selectedImage!),
+        builder: (context, snapshot) {
+          return Text(
+            snapshot.data ?? '',
+            style: const TextStyle(fontWeight: FontWeight.w700),
+          );
+        },
+      );
     }
     return Container();
   }
@@ -242,7 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
         await textRecogniser.processImage(inputImage);
 
     String text = recognizedText.text;
-    String textFiltered = text.replaceAll(new RegExp(r'[^0-9]'), '');
+    String textFiltered = text.replaceAll(RegExp(r'[^0-9]'), '');
     textRecogniser.close();
 
     if (textFiltered.isEmpty) {
@@ -272,7 +270,8 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       );
     } else {
-      if (_salleController.text.isNotEmpty) {
+      if (_salleController.text.isNotEmpty &&
+          _typeCoursController.text.isEmpty) {
         Navigator.push(
           context,
           MaterialPageRoute(
