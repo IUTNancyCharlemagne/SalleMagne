@@ -73,7 +73,7 @@ const register = (event: Event) => {
         </button>
       </form>
       <p class="text-red-500 mt-4">{{ err }}</p>
-      <p v-if="validate" class="text-green-700 mt-4">Vous êtes inscrit, rendez-vous sur <NuxtLink :to="'/signin'" class="font-bold hover:text-green-500 ">la page connexion</NuxtLink></p>
+      <p v-if="validate" class="text-green-700 mt-4">Vous êtes inscrit, rendez-vous sur <NuxtLink :to="'/connexion'" class="font-bold hover:text-green-500 ">la page connexion</NuxtLink></p>
 
     </div>
   </div>

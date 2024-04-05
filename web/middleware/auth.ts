@@ -4,7 +4,7 @@ const authMiddleware = async () => {
     const token = getTokenUser()
 
     if (!token) {
-        return navigateTo('/signin');
+        return navigateTo('/connexion');
     }
 }
 

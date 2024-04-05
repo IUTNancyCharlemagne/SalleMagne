@@ -9,21 +9,21 @@
               <img src="./assets/logo_iut.png" alt="Iut Charlemagne" class="h-8 w-8 mr-2">
               <h1>Salle'Magne</h1>
             </NuxtLink>
-            <NuxtLink to="/SearchSalle"
+            <NuxtLink to="/recherche"
                       class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
               Rechercher une salle ou un cours
             </NuxtLink>
-            <NuxtLink to="/geoloc"
+            <NuxtLink to="/geolocalisation"
               class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
               Où est l'iut charlemagne ?
             </NuxtLink>
             <div v-if="token === '' || token === null">
               <div class="flex items-end space-x-4">
-                <NuxtLink to="/signin"
+                <NuxtLink to="/connexion"
                   class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
                   Se connecter
                 </NuxtLink>
-                <NuxtLink to="/signup"
+                <NuxtLink to="/inscription"
                   class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
                   S'inscrire
                 </NuxtLink>
