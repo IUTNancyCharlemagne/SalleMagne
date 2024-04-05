@@ -6,6 +6,7 @@ export default {
     return {
       numSalleInput: "",
       coursInput: "",
+      isNumLastModified: null,
       isStreaming: false,
       imageUrl: null,
     };
@@ -56,11 +57,22 @@ export default {
       video.srcObject = null;
       this.isStreaming = false;
     },
-
+    setIsNumLastModified(value) {
+      this.isNumLastModified = value;
+    },
   },
   beforeDestroy() {
     this.stopCamera();
-  }
+  },
+  mounted() {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        if (this.isNumLastModified !== null) {
+          this.isNumLastModified ? this.searchSalleByText() : this.searchCoursByText()
+        }
+      }
+    })
+  },
 }
 
 </script>
@@ -72,7 +84,8 @@ export default {
     <div class="w-1/2 mr-5 p-4 bg-white rounded shadow">
       <div>
         <h1 class="text-2xl font-bold mb-4 text-blue-800">Rechercher une salle par numéro</h1>
-        <input class="shadow border-2 number-input" type="number" v-model="numSalleInput" placeholder="Exemple: 505">
+        <input class="shadow border-2 number-input" type="number" v-model="numSalleInput" placeholder="Exemple: 505"
+               @input="setIsNumLastModified(true)">
         <button
             class="ml-4 bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200"
             @click="searchSalleByText">Rechercher
@@ -80,7 +93,8 @@ export default {
       </div>
       <div>
         <h1 class="mt-4 text-2xl font-bold mb-4 text-blue-800">Rechercher un cours par matière</h1>
-        <input class="shadow border-2" type="text" v-model="coursInput" placeholder="Exemple: anglais">
+        <input class="shadow border-2" type="text" v-model="coursInput" placeholder="Exemple: anglais"
+               @input="setIsNumLastModified(false)">
         <button
             class="ml-4 bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200"
             @click="searchCoursByText">Rechercher
