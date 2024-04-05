@@ -6,7 +6,6 @@ import {PostConnexion} from "../actions/PostConnexion.js";
 import {DeleteFavoris} from "../actions/DeleteFavoris.js";
 import {GetSalles} from "../actions/GetSalles.js";
 import checkToken from "../middlewares/checkToken.js";
-import { get } from "http";
 import {GetSallesByWeek} from "../actions/GetSallesByWeek.js";
 
 const router = express.Router()
