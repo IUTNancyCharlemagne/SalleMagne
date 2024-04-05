@@ -22,7 +22,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import { API_FAVORIS } from '~/utils/api_const';
 import authMiddleware from "~/middleware/auth";
 import { getTokenUser } from "~/utils/functions/tokenUser";
@@ -50,36 +49,45 @@ export default {
   }
 },
     loadFavoris() {
-      const api = axios.create({
-        baseURL: API_FAVORIS,
+      fetch(API_FAVORIS, {
+        method: 'GET',
         headers: {
-          'Authorization': `Bearer ` + getTokenUser(),
+          'Authorization': `Bearer ${getTokenUser()}`,
         }
-      });
-
-      api.get('/')
-        .then(response => {
-          this.favoris = response.data.data;
-          console.log(this.favoris);
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Erreur lors de la récupération des favoris');
+            }
+            return response.json();
+          })
+          .then(data => {
+            this.favoris = data.data;
+            console.log(this.favoris);
+          })
+          .catch(error => {
+            console.error('Erreur :', error);
+          });
     },
     async deleteSelectedFavoris() {
-      const api = axios.create({
-        baseURL: API_FAVORIS,
-        headers: {
-          'Authorization': `Bearer ` + getTokenUser(),
-        }
-      });
-
       for (const favori of this.selectedFavoris) {
-        await api.delete('/', { data: { salle: favori.salle } }).catch(error => {
-          console.error('Error deleting favori:', error.response);
-        });
-      }
+        try {
+          await fetch(API_FAVORIS, {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${getTokenUser()}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              salle: favori.salle
+            })
+          });
 
+          console.log('Favori supprimé :', favori);
+        } catch (error) {
+          console.error('Erreur lors de la suppression du favori :', error);
+        }
+      }
       this.selectedFavoris = [];
       this.loadFavoris();
     },
