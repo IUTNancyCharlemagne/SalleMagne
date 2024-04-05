@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:salle_magne/widget/event.dart';
 import 'package:salle_magne/widget/navigation_bar_nonco.dart';
+import 'package:http/http.dart' as http;
 
 class SalleDetails extends StatefulWidget {
   final String salle;
@@ -113,7 +114,7 @@ class _SalleDetailsState extends State<SalleDetails> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: _availableDates
-                      .map((date) => buildDateCard(date))
+                      .map((date) => buildDateCard(context, date))
                       .toList(),
                 ),
               ),
@@ -125,7 +126,7 @@ class _SalleDetailsState extends State<SalleDetails> {
     );
   }
 
-  Widget buildDateCard(DateTime date) {
+  Widget buildDateCard(BuildContext context, DateTime date) {
     List<Event> eventsForDate =
         _events!.where((event) => event.date == date).toList();
 
@@ -147,7 +148,9 @@ class _SalleDetailsState extends State<SalleDetails> {
                 ),
               ),
               const SizedBox(height: 8),
-              ...eventsForDate.map((event) => buildEventCard(event)).toList(),
+              ...eventsForDate
+                  .map((event) => buildEventCard(context, event))
+                  .toList(),
             ],
           ),
         ),
@@ -155,7 +158,7 @@ class _SalleDetailsState extends State<SalleDetails> {
     );
   }
 
-  Widget buildEventCard(Event event) {
+  Widget buildEventCard(BuildContext context, Event event) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Column(

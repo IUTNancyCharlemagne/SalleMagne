@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:salle_magne/widget/navigation_bar_nonco.dart'; // Importez votre widget NavigationBarNonCo
+import 'package:salle_magne/widget/navigation_bar_nonco.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({Key? key}) : super(key: key);
@@ -23,55 +23,109 @@ class LoginView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.only(
-                left: 20.0, bottom: 20.0, right: 20.0, top: 20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: nomController,
-                    decoration: const InputDecoration(
-                      labelText: 'Nom',
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: prenomController,
-                    decoration: const InputDecoration(
-                      labelText: 'Prénom',
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: emailController,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Mot de passe',
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 300,
-                  child: TextFormField(
-                    controller: confirmPasswordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Confirmer le mot de passe',
+                Card(
+                  elevation: 4,
+                  margin: const EdgeInsets.all(8),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: 300,
+                          child: TextFormField(
+                            controller: nomController,
+                            style: const TextStyle(color: Colors.blue),
+                            decoration: const InputDecoration(
+                              labelText: 'Nom',
+                              labelStyle: TextStyle(color: Colors.blue),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: 300,
+                          child: TextFormField(
+                            controller: prenomController,
+                            style: const TextStyle(color: Colors.blue),
+                            decoration: const InputDecoration(
+                              labelText: 'Prénom',
+                              labelStyle: TextStyle(color: Colors.blue),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: 300,
+                          child: TextFormField(
+                            controller: emailController,
+                            style: const TextStyle(color: Colors.blue),
+                            decoration: const InputDecoration(
+                              labelText: 'Email',
+                              labelStyle: TextStyle(color: Colors.blue),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        SizedBox(
+                          width: 300,
+                          child: TextFormField(
+                            controller: passwordController,
+                            obscureText: true,
+                            style: const TextStyle(color: Colors.blue),
+                            decoration: const InputDecoration(
+                              labelText: 'Mot de passe',
+                              labelStyle: TextStyle(color: Colors.blue),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: 300,
+                          child: TextFormField(
+                            controller: confirmPasswordController,
+                            obscureText: true,
+                            style: const TextStyle(color: Colors.blue),
+                            decoration: const InputDecoration(
+                              labelText: 'Confirmer le mot de passe',
+                              labelStyle: TextStyle(color: Colors.blue),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -89,8 +143,7 @@ class LoginView extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar:
-          const NavigationBarNonCo(), // Ajoutez cette ligne pour inclure votre bottom navigation bar
+      bottomNavigationBar: const NavigationBarNonCo(),
     );
   }
 
