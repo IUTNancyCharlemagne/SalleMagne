@@ -1,5 +1,6 @@
 <template>
-  <div class="p-6 bg-gray-100 min-h-screen">
+  <div class="p-6 bg-gray-100 h-[8vh]">
+    <div class="pb-7">
     <h1 class="text-4xl font-bold mb-4">Favoris</h1>
     <h2 class="text-2xl mb-6">Trouvez ici vos salles favorites :</h2>
     <button @click="selectAll"  class=" px-1 py-1 text-lg text-white bg-gray-700 rounded hover:bg-gray-600">
@@ -19,7 +20,7 @@
         </NuxtLink>
       </li>
     </ul>
-    
+    </div>
   </div>
 </template>
 <script>
