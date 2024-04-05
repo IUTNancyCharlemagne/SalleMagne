@@ -26,7 +26,7 @@ export default defineComponent({
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: 'timeGridDay, timeGridWeek'
+          right: 'timeGridDay,timeGridWeek'
         },
         initialView: 'timeGridWeek',
         //initialEvents: this.addAllEvents(Event), // alternatively, use the `events` setting to fetch from a feed
