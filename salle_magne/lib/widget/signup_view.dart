@@ -28,7 +28,6 @@ class SignUpView extends StatelessWidget {
       if (response.statusCode == 200) {
         // Connexion réussie
         print('Connexion réussie');
-        // Vous pouvez ajouter ici la logique pour gérer la connexion réussie
       } else {
         // Affichage d'un message d'erreur en cas d'échec de la connexion
         print('Échec de la connexion. StatusCode: ${response.statusCode}');

@@ -33,10 +33,9 @@ class _MyHomePageState extends State<MyHomePage> {
           icon: Image.asset('assets/images/logoIut.png'),
           onPressed: () async {
             // Ouvrir l'URL du site de l'IUT dans le navigateur
-            const url = 'https://www.iut-nancy.univ-lorraine.fr/';
-            if (await canLaunchUrl(url as Uri)) {
-              // Correction ici
-              await launchUrl(url as Uri); // Correction ici
+            const url = 'https://iut-charlemagne.univ-lorraine.fr';
+            if (await canLaunchUrl(Uri.parse(url))) {
+              await launchUrl(Uri.parse(url));
             } else {
               throw 'Impossible d\'ouvrir $url';
             }
@@ -83,7 +82,20 @@ class _MyHomePageState extends State<MyHomePage> {
                           'Veuillez entrer un numéro de salle.',
                         );
                       },
-                      child: const Text('Valider'),
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all<Color>(
+                            const Color.fromRGBO(
+                                13, 68, 139, 1)), // Couleur du bouton
+                        overlayColor: WidgetStateProperty.all<Color>(
+                            const Color.fromARGB(255, 54, 122, 247)
+                                .withOpacity(0.5)), // Couleur de survol
+                      ),
+                      child: const Text(
+                        'Valider',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -169,10 +181,23 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         _validateAndNavigate(
                           _typeCoursController.text,
-                          'Veuillez entrer un type de cours.',
+                          'Veuillez entrer un cours.',
                         );
                       },
-                      child: const Text('Valider'),
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all<Color>(
+                            const Color.fromRGBO(
+                                13, 68, 139, 1)), // Couleur du bouton
+                        overlayColor: WidgetStateProperty.all<Color>(
+                            const Color.fromARGB(255, 54, 122, 247)
+                                .withOpacity(0.5)), // Couleur de survol
+                      ),
+                      child: const Text(
+                        'Valider',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
