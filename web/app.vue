@@ -9,6 +9,10 @@
               <img src="./assets/logo_iut.png" alt="Iut Charlemagne" class="h-8 w-8 mr-2">
               <h1>Salle'Magne</h1>
             </NuxtLink>
+            <NuxtLink to="/SearchSalle"
+                      class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
+              Rechercher une salle ou un cours
+            </NuxtLink>
             <NuxtLink to="/geoloc"
               class="bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200">
               Où est l'iut charlemagne ?
