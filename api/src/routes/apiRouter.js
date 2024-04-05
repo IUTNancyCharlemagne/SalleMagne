@@ -6,7 +6,7 @@ import {PostConnexion} from "../actions/PostConnexion.js";
 import {DeleteFavoris} from "../actions/DeleteFavoris.js";
 import {GetSalles} from "../actions/GetSalles.js";
 import checkToken from "../middlewares/checkToken.js";
-import { get } from "http";
+import {GetSallesByWeek} from "../actions/GetSallesByWeek.js";
 
 const router = express.Router()
 
@@ -18,4 +18,5 @@ router.delete("/favoris", checkToken,(req, res) => DeleteFavoris(req, res))
 router.post("/inscription", (req, res) => PostInscription(req, res))
 router.post("/connexion", (req, res) => PostConnexion(req, res))
 router.get("/salles",(res,req)=>GetSalles(res,req))
+router.get("/salles/:week",(res,req)=>GetSallesByWeek(res,req))
 export default router

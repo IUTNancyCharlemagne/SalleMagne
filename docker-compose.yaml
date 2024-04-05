@@ -1,9 +1,26 @@
-version: "3.5"
+version: "3"
 networks:
   salle.net:
     driver: bridge
 
 services:
+  api:
+    image: 'node:alpine'
+    command: sh -c "npm i && npm run start"
+    volumes:
+      - ./api:/app
+    working_dir: /app
+    networks:
+      - salle.net
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - PORTHTTPS=3443
+      - SECRET_KEY=${SECRET_KEY:-secret}
+    ports:
+      - '32495:3000'
+      - '32499:3443'
+
   db:
     image: mariadb:10.4
     container_name: mariadb
@@ -27,18 +44,3 @@ services:
       - salle.net
     ports:
       - "32496:8080"
-
-  api:
-    image: 'node:alpine'
-    command: sh -c "npm i && npm run dev:windows"
-    volumes:
-      - ./api:/app
-    working_dir: /app
-    networks:
-      - salle.net
-    environment:
-      - NODE_ENV=development
-      - PORT=3000
-      - SECRET_KEY=${SECRET_KEY:-secret}
-    ports:
-      - '32495:3000'

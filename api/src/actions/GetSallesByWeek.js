@@ -4,11 +4,11 @@ import ICAL from 'ical.js';
 
 
 //Récupère les salles de l'agenda et les filtre selon les paramètres donnés
-export async function GetSalles(req, res) {
+export async function GetSallesByWeek(req, res) {
     try {
         //récupère les données du fichier ics
         const readFile = util.promisify(fs.readFile);
-        const icsData = await readFile('./public/ADECAL.ics', 'utf8');
+        const icsData = await readFile(`./public/${req.params.week}.ics`, 'utf8');
         const jcalData = ICAL.parse(icsData);
         const comp = new ICAL.Component(jcalData);
 

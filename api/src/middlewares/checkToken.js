@@ -4,7 +4,6 @@ export default (req, res, next) => {
     try{
         const auth = req.get("Authorization")
         const token = auth.split(" ")[1]
-        console.log(1)
         const ver = verify(token)
         if (ver) {
             const decoded = decode(token)
