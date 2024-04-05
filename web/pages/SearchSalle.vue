@@ -6,22 +6,34 @@ export default {
     return {
       numSalleInput: "",
       coursInput: "",
-      isNumLastModified: null,
       isStreaming: false,
       imageUrl: null,
     };
   },
   methods: {
-    async searchSalleByText() {
-      const num = parseInt(this.numSalleInput)
-      if (isNaN(num)) {
-        return
+    //Redirige la recherche de l'utilisateur en fonction des champs qu'il a rempli
+    async research() {
+      if (this.numSalleInput !== "" && this.coursInput === "") {
+        if (isNaN(this.numSalleInput)) {
+          return
+        }
+        const num = this.numSalleInput
+        this.numSalleInput = ""
+        this.$router.push(`/salle/${num}`)
+      } else if (this.numSalleInput === "" && this.coursInput !== "") {
+        const cours = this.coursInput
+        this.coursInput = ""
+        this.$router.push(`/cours/${cours}`)
+      } else if (this.numSalleInput !== "" && this.coursInput !== "") {
+        if (isNaN(this.numSalleInput)) {
+          return
+        }
+        const num = this.numSalleInput
+        this.numSalleInput = ""
+        const cours = this.coursInput
+        this.coursInput = ""
+        this.$router.push(`/cours/${cours}/salles/${num}`)
       }
-      this.$router.push(`/salle/${num}`)
-    },
-    async searchCoursByText() {
-      const cours = this.coursInput
-      this.$router.push(`/cours/${cours}`)
     },
     async takePhoto() {
       const video = this.$refs.video;
@@ -57,9 +69,6 @@ export default {
       video.srcObject = null;
       this.isStreaming = false;
     },
-    setIsNumLastModified(value) {
-      this.isNumLastModified = value;
-    },
   },
   beforeDestroy() {
     this.stopCamera();
@@ -67,9 +76,7 @@ export default {
   mounted() {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        if (this.isNumLastModified !== null) {
-          this.isNumLastModified ? this.searchSalleByText() : this.searchCoursByText()
-        }
+        this.research();
       }
     })
   },
@@ -82,26 +89,22 @@ export default {
   <div class="flex p-4">
 
     <div class="w-1/2 mr-5 p-4 bg-white rounded shadow">
+      <h1 class="text-2xl font-bold mb-4 text-blue-800">Recherchez ici une salle ou un cours en fonction du numéro de la salle ou du nom du cours</h1>
       <div>
-        <h1 class="text-2xl font-bold mb-4 text-blue-800">Rechercher une salle par numéro</h1>
-        <input class="shadow border-2 number-input" type="number" v-model="numSalleInput" placeholder="Exemple: 505"
-               @input="setIsNumLastModified(true)">
-        <button
-            class="ml-4 bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200"
-            @click="searchSalleByText">Rechercher
-        </button>
+        <h2 class="text-xl font-bold mb-4 text-blue-800" >Numéro de salle</h2>
+        <input class="shadow border-2 number-input" type="number" v-model="numSalleInput" placeholder="Exemple: 505">
       </div>
       <div>
-        <h1 class="mt-4 text-2xl font-bold mb-4 text-blue-800">Rechercher un cours par matière</h1>
-        <input class="shadow border-2" type="text" v-model="coursInput" placeholder="Exemple: anglais"
-               @input="setIsNumLastModified(false)">
+        <h2 class="mt-4 text-xl font-bold mb-4 text-blue-800">Nom de cours</h2>
+        <input class="shadow border-2" type="text" v-model="coursInput" placeholder="Exemple: anglais">
+      </div>
+      <div>
         <button
-            class="ml-4 bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200"
-            @click="searchCoursByText">Rechercher
+            :disabled="numSalleInput==null || coursInput==null"
+            class="m-4 bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-600 transition-colors duration-200"
+            @click="research">Rechercher
         </button>
       </div>
-
-
     </div>
 
     <div class="w-1/2 ml-5 p-4 bg-white rounded shadow">
