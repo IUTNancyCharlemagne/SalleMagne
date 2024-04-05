@@ -7,6 +7,8 @@ import interactionPlugin from '@fullcalendar/interaction'
 import {createEventId} from '../utils/createEventId.js'
 import {dateFormatToCalendar} from "~/utils/functions/dateFormatToCalendar.js";
 import {getHeureFormatee} from "~/utils/functions/getHeureFormatee.js";
+import {addFavoris} from "~/utils/functions/addFavoris.js";
+import {searchSalleByTextAndDate} from "~/utils/functions/searchSalleByTextAndDate.js";
 
 export default defineComponent({
   components: {
@@ -27,7 +29,7 @@ export default defineComponent({
           right: 'timeGridDay, timeGridWeek'
         },
         initialView: 'timeGridWeek',
-        initialEvents: this.addAllEvents(), // alternatively, use the `events` setting to fetch from a feed
+        //initialEvents: this.addAllEvents(Event), // alternatively, use the `events` setting to fetch from a feed
         editable: false,
         selectable: false,
         selectMirror: true,
@@ -37,6 +39,9 @@ export default defineComponent({
         allDaySlot: false,
         locale: 'fr',
         eventClick: this.handleEventClick,
+        datesSet: async  (info) => {
+          this.$emit("handleChangeView", info)
+        }
       },
 
       currentEvents: [],
@@ -71,6 +76,20 @@ export default defineComponent({
       this.popupShow = true
     },
 
+    handleWeeks(info) {
+      console.log("info", info.start)
+    },
+
+    getWeekNumber(date) {
+      const januaryFirst = new Date(date.getFullYear(), 0, 1);
+
+      const diff = date.getTime() - januaryFirst.getTime();
+
+      return  Math.ceil((diff / (1000 * 60 * 60 * 24) + januaryFirst.getDay() + 1) / 7);
+
+    }
+
+
   },
 
 })
@@ -99,6 +118,9 @@ export default defineComponent({
 
             <li>
               <b> Salle :</b> {{ event[0].location || 'Inconnue' }}
+            </li>
+            <li>
+              <b> Description : </b> {{ event[0].description || 'Inconnue' }}
             </li>
 
           </ul>
