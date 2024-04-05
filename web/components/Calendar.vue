@@ -7,8 +7,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import {createEventId} from '../utils/createEventId.js'
 import {dateFormatToCalendar} from "~/utils/functions/dateFormatToCalendar.js";
 import {getHeureFormatee} from "~/utils/functions/getHeureFormatee.js";
-import {addFavoris} from "~/utils/functions/addFavoris.js";
-import {searchSalleByTextAndDate} from "~/utils/functions/searchSalleByTextAndDate.js";
+
 
 export default defineComponent({
   components: {
@@ -21,7 +20,7 @@ export default defineComponent({
         plugins: [
           dayGridPlugin,
           timeGridPlugin,
-          interactionPlugin // needed for dateClick
+          interactionPlugin
         ],
         headerToolbar: {
           left: 'prev,next today',
@@ -29,7 +28,6 @@ export default defineComponent({
           right: 'timeGridDay,timeGridWeek'
         },
         initialView: 'timeGridWeek',
-        //initialEvents: this.addAllEvents(Event), // alternatively, use the `events` setting to fetch from a feed
         editable: false,
         selectable: false,
         selectMirror: true,
@@ -39,7 +37,7 @@ export default defineComponent({
         allDaySlot: false,
         locale: 'fr',
         eventClick: this.handleEventClick,
-        datesSet: async  (info) => {
+        datesSet: async (info) => {
           this.$emit("handleChangeView", info)
         }
       },
@@ -63,31 +61,11 @@ export default defineComponent({
 
     },
 
-    addAllEvents() {
-      const eventsTable = []
-      this.event.forEach((cours) => {
-        eventsTable.push(this.addEvent(cours))
-      })
-      return eventsTable
-    },
 
     handleEventClick(clickInfo) {
       this.infoPopup = clickInfo
       this.popupShow = true
     },
-
-    handleWeeks(info) {
-      console.log("info", info.start)
-    },
-
-    getWeekNumber(date) {
-      const januaryFirst = new Date(date.getFullYear(), 0, 1);
-
-      const diff = date.getTime() - januaryFirst.getTime();
-
-      return  Math.ceil((diff / (1000 * 60 * 60 * 24) + januaryFirst.getDay() + 1) / 7);
-
-    }
 
 
   },
