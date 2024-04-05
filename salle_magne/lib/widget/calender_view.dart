@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salle_magne/styles.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart' as sf;
 
 class CalendarView extends StatefulWidget {
   const CalendarView({Key? key}) : super(key: key);
@@ -18,17 +18,10 @@ class _CalendarViewState extends State<CalendarView> {
           'Calendrier',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: backgroundAppbarColor,
+        backgroundColor: colorOrangeTheme,
       ),
-      body: Center(
-          child: TableCalendar(
-        firstDay: DateTime(2024, 3, 1),
-        lastDay: DateTime(2024, 30, 3),
-        focusedDay: DateTime.now(),
-      )),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        child: Icon(Icons.add),
+      body: sf.SfCalendar(
+        view: sf.CalendarView.month,
       ),
     );
   }

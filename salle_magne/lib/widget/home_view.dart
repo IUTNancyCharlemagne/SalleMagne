@@ -5,7 +5,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:salle_magne/widget/cours_details.dart';
 import 'package:salle_magne/widget/navigation_bar_nonco.dart';
 import 'package:salle_magne/widget/salle_details.dart';
+
+import 'package:salle_magne/widget/calender_view.dart';
 import 'package:salle_magne/styles.dart';
+import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -19,14 +23,17 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _salleController = TextEditingController();
   final TextEditingController _typeCoursController = TextEditingController();
 
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text('Salle\' Magne', style: TextStyle(color: Colors.white)),
-        backgroundColor: colorOrangeTheme,
-      ),
+
+          title: const Text('Salle\' Magne',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: colorOrangeTheme),
+
       body: SingleChildScrollView(
         child: SafeArea(
           child: Center(
@@ -54,20 +61,23 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ],
+
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
+
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
                       onPressed: () {
                         _validateAndNavigate(
-                          _salleController.text,
-                          'Veuillez entrer un numéro de salle.',
+                          _typeCoursController.text,
+                          'Veuillez entrer un type de cours.',
                         );
                       },
                       child: const Text('Valider'),
+
                     ),
                   ),
                 ),
@@ -85,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ElevatedButton(
                       onPressed: _pickImageFromGallery,
                       child: const Icon(Icons.image),
+
                     ),
                     const SizedBox(width: 30),
                     ElevatedButton(
@@ -130,6 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
+
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0, top: 8.0),
                   child: Align(
@@ -149,6 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
+
       ),
       bottomNavigationBar: const NavigationBarNonCo(),
     );
@@ -166,6 +179,27 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _selectedImage = null;
       });
+    }
+  }
+
+  void navigate(int index) {
+    switch (index) {
+      case 0:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MyHomePage()));
+        break;
+      case 1:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MyHomePage()));
+        break;
+      case 2:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => CalendarView()));
+        break;
+      case 3:
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const MyHomePage()));
+        break;
     }
   }
 
