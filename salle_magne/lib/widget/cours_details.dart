@@ -17,7 +17,7 @@ class CoursDetails extends StatelessWidget {
       body: Center(
         child: Text(
           'Informations sur le cours $cours', // Utilisation de la variable 'cours' plutôt que 'CoursDetails'
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
       ),
       bottomNavigationBar:
