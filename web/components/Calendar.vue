@@ -8,6 +8,7 @@ import {createEventId} from '../utils/createEventId.js'
 import {dateFormatToCalendar} from "~/utils/functions/dateFormatToCalendar.js";
 import {getHeureFormatee} from "~/utils/functions/getHeureFormatee.js";
 
+
 export default defineComponent({
   components: {
     FullCalendar,
@@ -19,15 +20,14 @@ export default defineComponent({
         plugins: [
           dayGridPlugin,
           timeGridPlugin,
-          interactionPlugin // needed for dateClick
+          interactionPlugin
         ],
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: 'timeGridDay, timeGridWeek'
+          right: 'timeGridDay,timeGridWeek'
         },
         initialView: 'timeGridWeek',
-        initialEvents: this.addAllEvents(), // alternatively, use the `events` setting to fetch from a feed
         editable: false,
         selectable: false,
         selectMirror: true,
@@ -37,6 +37,9 @@ export default defineComponent({
         allDaySlot: false,
         locale: 'fr',
         eventClick: this.handleEventClick,
+        datesSet: async (info) => {
+          this.$emit("handleChangeView", info)
+        }
       },
 
       currentEvents: [],
@@ -58,18 +61,12 @@ export default defineComponent({
 
     },
 
-    addAllEvents() {
-      const eventsTable = []
-      this.event.forEach((cours) => {
-        eventsTable.push(this.addEvent(cours))
-      })
-      return eventsTable
-    },
 
     handleEventClick(clickInfo) {
       this.infoPopup = clickInfo
       this.popupShow = true
     },
+
 
   },
 
@@ -99,6 +96,9 @@ export default defineComponent({
 
             <li>
               <b> Salle :</b> {{ event[0].location || 'Inconnue' }}
+            </li>
+            <li>
+              <b> Description : </b> {{ event[0].description || 'Inconnue' }}
             </li>
 
           </ul>

@@ -11,7 +11,6 @@ export const checkFavori = async (id) => {
         });
 
         if (res.ok) {
-            console.log(id)
             const data = await res.json();
             return data.data.some(item => item.salle === parseInt(id));
         } else {
