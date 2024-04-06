@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:salle_magne/styles.dart';
+import 'package:salle_magne/widget/navigation_bar_nonco.dart';
 import 'package:salle_magne/widget/salle_details.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CoursDetails extends StatefulWidget {
   final String cours;
@@ -14,6 +17,7 @@ class CoursDetails extends StatefulWidget {
 
 class _CoursDetailsState extends State<CoursDetails> {
   Map<String, List<String>> _sallesParEtage = {};
+
   bool _isLoading = true;
 
   @override
@@ -54,11 +58,26 @@ class _CoursDetailsState extends State<CoursDetails> {
         if (!sallesParEtage.containsKey(etage)) {
           sallesParEtage[etage] = [];
         }
-        sallesParEtage[etage]!.add(salle);
+        if (!sallesParEtage[etage]!.contains(salle)) {
+          sallesParEtage[etage]!.add(salle);
+        }
       }
       String cours = data['summary'];
     }
-    return sallesParEtage;
+
+    // Trier les étages
+    var sortedKeys = sallesParEtage.keys.toList();
+    sortedKeys.sort((a, b) {
+      if (a == 'Rez-de-chaussée') return -1;
+      if (b == 'Rez-de-chaussée') return 1;
+      return int.parse(a).compareTo(int.parse(b));
+    });
+
+    var sortedSallesParEtage = {
+      for (var k in sortedKeys) k: sallesParEtage[k]!
+    };
+
+    return sortedSallesParEtage;
   }
 
   String _extractSalle(String? location) {
@@ -66,7 +85,7 @@ class _CoursDetailsState extends State<CoursDetails> {
       return '';
     }
 
-    // Utilisation d'une expression régulière pour extraire les chiffres de la chaîne
+    //expression régulière T-T pour extraire les chiffres de la chaîne
     RegExp regExp = RegExp(r'(\d{1,3})');
     Match? match = regExp.firstMatch(location);
     if (match != null) {
@@ -100,8 +119,18 @@ class _CoursDetailsState extends State<CoursDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Salles pour le cours ${widget.cours}'),
-        backgroundColor: Colors.grey,
+        title: Text(
+          'Salles pour le cours ${widget.cours}',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: colorTheme,
+        leading: IconButton(
+          icon: Image.asset('assets/images/logoIut.png'),
+          onPressed: () async {
+            // Retour à la page précédente
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: _isLoading
           ? const Center(
@@ -124,13 +153,18 @@ class _CoursDetailsState extends State<CoursDetails> {
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
+      bottomNavigationBar: const NavigationBarNonCo(),
     );
   }
 
   Widget buildEtageCard(BuildContext context, String etage) {
     List<String> salles = _sallesParEtage[etage]!;
+
+    // Tri des salles par ordre croissant
+    salles.sort((a, b) => int.parse(a).compareTo(int.parse(b)));
+
     return SizedBox(
-      width: 600,
+      width: 500,
       child: Card(
         elevation: 4,
         margin: const EdgeInsets.all(8),
@@ -147,7 +181,14 @@ class _CoursDetailsState extends State<CoursDetails> {
                 ),
               ),
               const SizedBox(height: 8),
-              ...salles.map((salle) => buildSalleTile(context, salle)).toList(),
+              GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                children: salles
+                    .map((salle) => buildSalleTile(context, salle))
+                    .toList(),
+              ),
             ],
           ),
         ),
@@ -156,21 +197,39 @@ class _CoursDetailsState extends State<CoursDetails> {
   }
 
   Widget buildSalleTile(BuildContext context, String salle) {
-    return SizedBox(
-      width: 600, // Définissez une largeur maximale pour les tuiles
-      child: ListTile(
-        title: Text('Cours en $salle'),
-        onTap: () {
-          // Naviguer vers la page de détails de la salle
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SalleDetails(
-                salle: salle,
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: SizedBox(
+        width: 120,
+        height: 60,
+        child: Card(
+          elevation: 4,
+          margin: const EdgeInsets.symmetric(vertical: 4),
+          color: const Color.fromARGB(255, 10, 80, 138),
+          child: InkWell(
+            onTap: () {
+              // Naviguer vers la page de détails de la salle
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SalleDetails(
+                    salle: salle,
+                  ),
+                ),
+              );
+            },
+            child: Center(
+              child: Text(
+                'Salle $salle',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
