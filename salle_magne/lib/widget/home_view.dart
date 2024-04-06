@@ -6,6 +6,7 @@ import 'package:salle_magne/widget/cours_details.dart';
 import 'package:salle_magne/widget/navigation_bar_nonco.dart';
 import 'package:salle_magne/widget/salle_details.dart';
 import 'package:salle_magne/styles.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -23,9 +24,23 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text('Salle\' Magne', style: TextStyle(color: Colors.white)),
-        backgroundColor: colorOrangeTheme,
+        title: const Text(
+          'Salle\' Magne',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: colorTheme,
+        leading: IconButton(
+          icon: Image.asset('assets/images/logoIut.png'),
+          onPressed: () async {
+            // Ouvrir l'URL du site de l'IUT dans le navigateur
+            const url = 'https://iut-charlemagne.univ-lorraine.fr';
+            if (await canLaunchUrl(Uri.parse(url))) {
+              await launchUrl(Uri.parse(url));
+            } else {
+              throw 'Impossible d\'ouvrir $url';
+            }
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -67,7 +82,20 @@ class _MyHomePageState extends State<MyHomePage> {
                           'Veuillez entrer un numéro de salle.',
                         );
                       },
-                      child: const Text('Valider'),
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all<Color>(
+                            const Color.fromRGBO(
+                                13, 68, 139, 1)), // Couleur du bouton
+                        overlayColor: WidgetStateProperty.all<Color>(
+                            const Color.fromARGB(255, 54, 122, 247)
+                                .withOpacity(0.5)), // Couleur de survol
+                      ),
+                      child: const Text(
+                        'Valider',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -109,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Row(
-                        
+
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Text(
@@ -154,10 +182,23 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         _validateAndNavigate(
                           _typeCoursController.text,
-                          'Veuillez entrer un type de cours.',
+                          'Veuillez entrer un cours.',
                         );
                       },
-                      child: const Text('Valider'),
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all<Color>(
+                            const Color.fromRGBO(
+                                13, 68, 139, 1)), // Couleur du bouton
+                        overlayColor: WidgetStateProperty.all<Color>(
+                            const Color.fromARGB(255, 54, 122, 247)
+                                .withOpacity(0.5)), // Couleur de survol
+                      ),
+                      child: const Text(
+                        'Valider',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -225,7 +266,9 @@ class _MyHomePageState extends State<MyHomePage> {
     String textFiltered = text.replaceAll(RegExp(r'[^0-9]'), '');
     if (textFiltered.length > 3) {
       textFiltered = textFiltered.substring(0, 3);
+
     };
+
     textRecogniser.close();
 
     if (textFiltered.isEmpty) {

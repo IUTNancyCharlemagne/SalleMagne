@@ -13,23 +13,22 @@ class NavigationBarCo extends StatelessWidget {
     return BottomNavigationBar(
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home, color: colorOrangeTheme), // Icône orange
+          icon: Icon(Icons.home, color: colorTheme), // Icône orange
           label: 'Accueil',
           backgroundColor: Color.fromARGB(255, 214, 214, 214),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_today,
-              color: colorOrangeTheme), // Icône orange
+          icon: Icon(Icons.calendar_today, color: colorTheme), // Icône orange
           label: 'Calendrier',
           backgroundColor: Colors.white,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person_add, color: colorOrangeTheme), // Icône orange
+          icon: Icon(Icons.person_add, color: colorTheme), // Icône orange
           label: 'Inscription',
           backgroundColor: Colors.white,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.login, color: colorOrangeTheme), // Icône orange
+          icon: Icon(Icons.login, color: colorTheme), // Icône orange
           label: 'Connexion',
           backgroundColor: Colors.white,
         ),
@@ -68,7 +67,7 @@ class NavigationBarCo extends StatelessWidget {
       case 3:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const SignUpView()),
+          MaterialPageRoute(builder: (context) => SignUpView()),
         );
         break;
     }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:salle_magne/styles.dart';
+
+import 'package:salle_magne/widget/navigation_bar_nonco.dart';
+
 import 'package:syncfusion_flutter_calendar/calendar.dart' as sf;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,7 +11,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 class SalleDetails extends StatefulWidget {
   final String salle;
 
-  const SalleDetails({Key? key, required this.salle}) : super(key: key);
+  const SalleDetails({super.key, required this.salle});
 
   @override
   _SalleDetailsState createState() => _SalleDetailsState();
@@ -21,40 +24,71 @@ class _SalleDetailsState extends State<SalleDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Cours de la salle ${widget.salle}'),
-          backgroundColor: colorOrangeTheme,
+      appBar: AppBar(
+        title: Text(
+          'Cours de la salle ${widget.salle}',
+          style: const TextStyle(color: Colors.white),
         ),
-        body: FutureBuilder<List<sf.Appointment>>(
-          future: fetchCourses(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return SpinKitFadingCircle(
-                itemBuilder: (BuildContext context, int index) {
-                  return DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: index.isEven ? colorOrangeTheme : colorGrayTheme,
-                    ),
-                  );
-                },
-              );
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text('Erreur de chargement des données'),
-              );
-            } else if (snapshot.hasData) {
-              return sf.SfCalendar(
-                view: sf.CalendarView.week,
-                firstDayOfWeek: 1,
-                dataSource: CoursesDataSource(snapshot.data!),
-              );
-            } else {
-              return const Center(
-                child: Text('Pas de données à afficher'),
-              );
-            }
-          },
-        ));
+        backgroundColor: colorTheme,
+        actions: [
+          IconButton(
+            icon: Image.asset(
+                'assets/images/logoIut.png'), // Ajoutez l'icône de la maison
+            onPressed: () {
+              Navigator.pop(context); // Retour à la page d'accueil
+            },
+          ),
+        ],
+      ),
+      body: FutureBuilder<List<sf.Appointment>>(
+        future: fetchCourses(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SpinKitFadingCircle(
+              itemBuilder: (BuildContext context, int index) {
+                return DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: index.isEven ? colorTheme : colorGrayTheme,
+                  ),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text('Erreur de chargement des données'),
+            );
+          } else if (snapshot.hasData) {
+            return sf.SfCalendar(
+              view: sf.CalendarView.week,
+              firstDayOfWeek: 1,
+              dataSource: CoursesDataSource(snapshot.data!),
+              timeSlotViewSettings: const sf.TimeSlotViewSettings(
+                timeIntervalHeight:
+                    30, // Réglage de la hauteur des intervalles de temps
+                timeInterval: Duration(hours: 1),
+                startHour: 7,
+                endHour: 19,
+                timeFormat: 'HH:mm', // Format 24 heures
+              ),
+              monthViewSettings: sf.MonthViewSettings(
+                appointmentDisplayMode:
+                    sf.MonthAppointmentDisplayMode.appointment,
+                agendaStyle: sf.AgendaStyle(
+                  backgroundColor: Colors.grey[300],
+                ),
+              ),
+              todayHighlightColor: Colors.grey[500],
+            );
+          } else {
+            return const Center(
+              child: Text('Pas de données à afficher'),
+            );
+          }
+        },
+      ),
+      bottomNavigationBar: const NavigationBarNonCo(),
+    );
+
   }
 
   Future<List<sf.Appointment>> fetchCourses() async {
@@ -89,7 +123,9 @@ class _SalleDetailsState extends State<SalleDetails> {
                   int.parse(divHeureEnd[1]),
                   0),
               subject: cours['summary'],
-              color: Colors.blue));
+
+              color: Color.fromARGB(255, 19, 104, 216)));
+
         }
         return courses;
       } else {
