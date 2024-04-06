@@ -17,8 +17,18 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: const Text('S\'inscrire sur Salle\'magne'),
+        backgroundColor: const Color.fromRGBO(13, 68, 139, 1),
+        title: const Text(
+          'S\'inscrire sur Salle\'magne',
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: IconButton(
+          icon: Image.asset('assets/images/logoIut.png'),
+          onPressed: () async {
+            // Retour à la page précédente
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -39,18 +49,18 @@ class LoginView extends StatelessWidget {
                           child: TextFormField(
                             controller: nomController,
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 62, 165, 250)),
+                                color: Color.fromRGBO(13, 68, 139, 1)),
                             decoration: const InputDecoration(
                               labelText: 'Nom',
                               labelStyle: TextStyle(
-                                  color: Color.fromARGB(255, 62, 165, 250)),
+                                  color: Color.fromRGBO(13, 68, 139, 1)),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 62, 165, 250)),
+                                    color: Color.fromRGBO(13, 68, 139, 1)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 6, 46, 78)),
+                                    color: Color.fromARGB(255, 17, 71, 187)),
                               ),
                             ),
                           ),
@@ -61,18 +71,18 @@ class LoginView extends StatelessWidget {
                           child: TextFormField(
                             controller: prenomController,
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 62, 165, 250)),
+                                color: Color.fromRGBO(13, 68, 139, 1)),
                             decoration: const InputDecoration(
                               labelText: 'Prénom',
                               labelStyle: TextStyle(
-                                  color: Color.fromARGB(255, 62, 165, 250)),
+                                  color: Color.fromRGBO(13, 68, 139, 1)),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 62, 165, 250)),
+                                    color: Color.fromRGBO(13, 68, 139, 1)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 6, 46, 78)),
+                                    color: Color.fromARGB(255, 17, 71, 187)),
                               ),
                             ),
                           ),
@@ -83,18 +93,18 @@ class LoginView extends StatelessWidget {
                           child: TextFormField(
                             controller: emailController,
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 62, 165, 250)),
+                                color: Color.fromRGBO(13, 68, 139, 1)),
                             decoration: const InputDecoration(
                               labelText: 'Email',
                               labelStyle: TextStyle(
-                                  color: Color.fromARGB(255, 62, 165, 250)),
+                                  color: Color.fromRGBO(13, 68, 139, 1)),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 62, 165, 250)),
+                                    color: Color.fromRGBO(13, 68, 139, 1)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 6, 46, 78)),
+                                    color: Color.fromARGB(255, 17, 71, 187)),
                               ),
                             ),
                           ),
@@ -106,18 +116,18 @@ class LoginView extends StatelessWidget {
                             controller: passwordController,
                             obscureText: true,
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 62, 165, 250)),
+                                color: Color.fromRGBO(13, 68, 139, 1)),
                             decoration: const InputDecoration(
                               labelText: 'Mot de passe',
                               labelStyle: TextStyle(
-                                  color: Color.fromARGB(255, 62, 165, 250)),
+                                  color: Color.fromRGBO(13, 68, 139, 1)),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 62, 165, 250)),
+                                    color: Color.fromRGBO(13, 68, 139, 1)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 6, 46, 78)),
+                                    color: Color.fromARGB(255, 17, 71, 187)),
                               ),
                             ),
                           ),
@@ -129,18 +139,18 @@ class LoginView extends StatelessWidget {
                             controller: confirmPasswordController,
                             obscureText: true,
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 62, 165, 250)),
+                                color: Color.fromRGBO(13, 68, 139, 1)),
                             decoration: const InputDecoration(
                               labelText: 'Confirmer le mot de passe',
                               labelStyle: TextStyle(
-                                  color: Color.fromARGB(255, 62, 165, 250)),
+                                  color: Color.fromRGBO(13, 68, 139, 1)),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 62, 165, 250)),
+                                    color: Color.fromRGBO(13, 68, 139, 1)),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 6, 46, 78)),
+                                    color: Color.fromARGB(255, 17, 71, 187)),
                               ),
                             ),
                           ),
@@ -155,7 +165,16 @@ class LoginView extends StatelessWidget {
                     onPressed: () async {
                       await _register(context);
                     },
-                    child: const Text('S\'inscrire'),
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all<Color>(
+                          const Color.fromRGBO(
+                              13, 68, 139, 1)), // Couleur du bouton
+                      overlayColor: WidgetStateProperty.all<Color>(
+                          const Color.fromARGB(255, 54, 122, 247)
+                              .withOpacity(0.5)), // Couleur de survol
+                    ),
+                    child: const Text('S\'inscrire',
+                        style: TextStyle(color: Colors.white)),
                   ),
                 ),
               ],

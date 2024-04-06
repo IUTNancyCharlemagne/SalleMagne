@@ -81,8 +81,18 @@ class SignUpView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: const Text('Connexion'),
+        backgroundColor: const Color.fromRGBO(13, 68, 139, 1),
+        title: const Text(
+          'Connexion sur Salle\'magne',
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: IconButton(
+          icon: Image.asset('assets/images/logoIut.png'),
+          onPressed: () async {
+            // Retour à la page précédente
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Center(
         child: Padding(
@@ -108,7 +118,7 @@ class SignUpView extends StatelessWidget {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 6, 46, 78)),
+                                  color: Color.fromARGB(255, 6, 19, 78)),
                             ),
                           ),
                         ),
@@ -142,7 +152,16 @@ class SignUpView extends StatelessWidget {
                   final String password = passwordController.text;
                   login(context, email, password);
                 },
-                child: const Text('Se connecter'),
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all<Color>(
+                      const Color.fromRGBO(
+                          13, 68, 139, 1)), // Couleur du bouton
+                  overlayColor: WidgetStateProperty.all<Color>(
+                      const Color.fromARGB(255, 54, 122, 247)
+                          .withOpacity(0.5)), // Couleur de survol
+                ),
+                child: const Text('Se connecter',
+                    style: TextStyle(color: Colors.white)),
               ),
               const SizedBox(height: 20),
               TextButton(
