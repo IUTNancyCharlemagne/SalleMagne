@@ -61,7 +61,6 @@ class _CoursDetailsState extends State<CoursDetails> {
           sallesParEtage[etage]!.add(salle);
         }
       }
-      String cours = data['summary'];
     }
 
     // Trier les étages
