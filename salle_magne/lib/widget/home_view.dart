@@ -137,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Row(
+
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Text(
@@ -265,8 +266,9 @@ class _MyHomePageState extends State<MyHomePage> {
     String textFiltered = text.replaceAll(RegExp(r'[^0-9]'), '');
     if (textFiltered.length > 3) {
       textFiltered = textFiltered.substring(0, 3);
-    }
-    ;
+
+    };
+
     textRecogniser.close();
 
     if (textFiltered.isEmpty) {

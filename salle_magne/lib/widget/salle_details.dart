@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:salle_magne/styles.dart';
+
 import 'package:salle_magne/widget/navigation_bar_nonco.dart';
+
 import 'package:syncfusion_flutter_calendar/calendar.dart' as sf;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -86,6 +88,7 @@ class _SalleDetailsState extends State<SalleDetails> {
       ),
       bottomNavigationBar: const NavigationBarNonCo(),
     );
+
   }
 
   Future<List<sf.Appointment>> fetchCourses() async {
@@ -120,7 +123,9 @@ class _SalleDetailsState extends State<SalleDetails> {
                   int.parse(divHeureEnd[1]),
                   0),
               subject: cours['summary'],
+
               color: Color.fromARGB(255, 19, 104, 216)));
+
         }
         return courses;
       } else {

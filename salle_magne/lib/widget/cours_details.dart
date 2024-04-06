@@ -130,6 +130,7 @@ class _CoursDetailsState extends State<CoursDetails> {
           },
         ),
       ),
+
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(),
@@ -227,6 +228,7 @@ class _CoursDetailsState extends State<CoursDetails> {
               ),
             ),
           ),
+
         ),
       ),
     );
