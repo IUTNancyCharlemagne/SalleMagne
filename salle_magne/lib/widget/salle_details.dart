@@ -33,9 +33,9 @@ class _SalleDetailsState extends State<SalleDetails> {
         actions: [
           IconButton(
             icon: Image.asset(
-                'assets/images/logoIut.png'), // Ajoutez l'icône de la maison
+                'assets/images/logoIut.png'),
             onPressed: () {
-              Navigator.pop(context); // Retour à la page d'accueil
+              Navigator.pop(context);
             },
           ),
         ],

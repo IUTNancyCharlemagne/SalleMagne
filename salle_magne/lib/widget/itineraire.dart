@@ -13,13 +13,6 @@ class ItineraireVersIUTPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*String apiKey = '';
-    if (Platform.isAndroid) {
-      apiKey = 'AIzaSyB1m5CcesqHLM2edg4cuwxoWCRAoLhPYDk';
-    } else if (Platform.isIOS) {
-      apiKey = 'AIzaSyB1m5CcesqHLM2edg4cuwxoWCRAoLhPYDk';
-    }*/
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Itinéraire vers l\'IUT'),
@@ -43,7 +36,6 @@ class ItineraireVersIUTPage extends StatelessWidget {
                     snippet: 'Institut Universitaire de Technologie',
                   ),
                 ),
-                // Ajouter d'autres marqueurs si nécessaire
               },
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
@@ -56,11 +48,11 @@ class ItineraireVersIUTPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Text(
-                  'Distance: XXX km', // Remplacez XXX par la distance réelle recup ?
+                  'Distance: XXX km',
                   textAlign: TextAlign.center,
                 ),
                 const Text(
-                  'Temps de trajet: XXX min', // Remplacez XXX par le temps de trajet réel
+                  'Temps de trajet: XXX min',
                   textAlign: TextAlign.center,
                 ),
                 ElevatedButton(
