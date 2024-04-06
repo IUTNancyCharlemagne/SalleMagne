@@ -137,7 +137,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Row(
-
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Text(
@@ -198,6 +197,28 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(
                           color: Colors.white,
                         ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _launchMaps();
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all<Color>(
+                          const Color.fromRGBO(
+                              13, 68, 139, 1)), // Couleur du bouton
+                      overlayColor: WidgetStateProperty.all<Color>(
+                          const Color.fromARGB(255, 54, 122, 247)
+                              .withOpacity(0.5)), // Couleur de survol
+                    ),
+                    child: const Text(
+                      'Consulter l\'itinéraire',
+                      style: TextStyle(
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -266,8 +287,7 @@ class _MyHomePageState extends State<MyHomePage> {
     String textFiltered = text.replaceAll(RegExp(r'[^0-9]'), '');
     if (textFiltered.length > 3) {
       textFiltered = textFiltered.substring(0, 3);
-
-    };
+    }
 
     textRecogniser.close();
 
@@ -314,6 +334,16 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       }
+    }
+  }
+
+  void _launchMaps() async {
+    const url =
+        'https://www.google.fr/maps/dir//Institut+Universitaire+de+Technologie+Nancy-Charlemagne,+2Ter+Bd+Charlemagne,+54000+Nancy/@48.6828484,6.1585054,17z/data=!4m17!1m7!3m6!1s0x4794a283532d81a9:0xd8601e71c5802628!2sInstitut+Universitaire+de+Technologie+Nancy-Charlemagne!8m2!3d48.6828484!4d6.1610803!16s%2Fg%2F12151g5g!4m8!1m0!1m5!1m1!1s0x4794a283532d81a9:0xd8601e71c5802628!2m2!1d6.1610803!2d48.6828484!3e3?entry=ttu';
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
     }
   }
 }
