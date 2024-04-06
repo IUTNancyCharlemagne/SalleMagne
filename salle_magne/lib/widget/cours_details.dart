@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:salle_magne/styles.dart';
 import 'package:salle_magne/widget/navigation_bar_nonco.dart';
 import 'package:salle_magne/widget/salle_details.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CoursDetails extends StatefulWidget {
   final String cours;
