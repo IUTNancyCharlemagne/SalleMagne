@@ -6,8 +6,8 @@ const config =  {
         host: 'db',
         port: 3306,
         user: 'root',
-        password: 'root',
-        database: 'sallemagne',
+        password: process.env.MYSQL_ROOT_PASSWORD,
+        database: process.env.MYSQL_DATABASE,
     },
 }
 
