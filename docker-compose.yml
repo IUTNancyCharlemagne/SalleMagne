@@ -4,6 +4,19 @@ networks:
     driver: bridge
 
 services:
+
+  web:
+    image: 'node:alpine'
+    command: ["node", "./server/index.mjs"]
+    volumes:
+      - ./web:/app
+    working_dir: /app
+    networks:
+      - salle.net
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+
   api:
     image: 'node:alpine'
     command: sh -c "npm i && npm run start"
@@ -15,11 +28,11 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - PORTHTTPS=3443
       - SECRET_KEY=${SECRET_KEY:-secret}
-    ports:
-      - '32495:3000'
-      - '32499:3443'
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-sallemagne}
+    depends_on:
+      - db
 
   db:
     image: mariadb:10.4
@@ -33,8 +46,6 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
     volumes:
       - ./api/sql/init:/docker-entrypoint-initdb.d
-    ports:
-      - "32497:3306"
 
   adminer:
     image: adminer
@@ -42,5 +53,22 @@ services:
     container_name: adminer
     networks:
       - salle.net
+
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certificat:/etc/nginx/certificat
+    networks:
+      - salle.net
     ports:
-      - "32496:8080"
+      - '32498:2498'
+      - "32496:2496"
+      - "32497:2497"
+      - '32495:2495'
+    depends_on:
+      - web
+      - api
+      - db
+      - adminer
