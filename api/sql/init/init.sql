@@ -16,9 +16,15 @@ CREATE TABLE `Etudiant` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `Etudiant` (`id`, `nom`, `prenom`, `email`, `mdp`) VALUES
-(1,	'Dupont',	'Jean',	'user1',	'$2y$10$6Pffa.Qx5h6kxLg0gSlcYe65W0vxH/FDrNQFucJxJ1/hg/qD8dIaK'),
-(2,	'Martin',	'Marie',	'user2',	'$2y$10$2A/LBYsjxgC4FIi2I9eBtO7Xgx7WC191KHIh2frqHkyVqUTUumRdO'),
-(3,	'Dubois',	'Pierre',	'brozer',	'$2y$10$hwVQrS171GH4ThHbW9/NauSRvDW0NWavIJoKPbWY0odrNtS953zaK');
+(6,	'test',	'testp',	'test@mail.com',	'$2b$10$qnQX2kIx0xx/X.frr1MPButaKWKDbjPbFFeKsxW0pdb7pm.GGlktu'),
+(10,	't',	't',	'test1@mail.com',	'$2b$10$ZjQdewugX3ssgtOaF.Vi4et7KDQKZs9kWcjQfSDkzg5elW6VrXDTW'),
+(12,	'oui',	'oui',	'ouioui@gmail.com',	'$2b$10$ryabKK1CjiYsCBighFAM8O4IeX39OMi.y69wM2bhfj8LNDbTxYVxa'),
+(13,	't',	't',	'test2@mail.com',	'$2b$10$6HMSuxIM4U157xicp6B5QeS817R3AbLewZgd73tmt9OTwU.Qk5myy'),
+(14,	't',	't',	'test10@mail.com',	'$2b$10$WLyvu8wCDoq.NuSiqMMJYeMeq049zxrh/wg3SMXbXcdhJ5b/ZG7k6'),
+(15,	'waltispurger',	'Julie',	'julie@gmail.com',	'$2b$10$N8zV7SUZG4bhXvTIAyMao.TF/asDr.G6ygZYhLLsyza4u94vXotuK'),
+(16,	'test',	'test',	'test@test.com',	'$2b$10$xR8He6gOKf1DqLKVu2oBb.L.U0v.u1ioa1y7kFZpgaRnon2fbbPsW'),
+(17,	'vincent ',	'vincent',	'vincent@gmail.com',	'$2b$10$FnaUbmlwcpVKUKyVOrsD0uL92zFdtkD.PTKfZW.WToEHUI7NUOZZW'),
+(18,	'aria',	'aria',	'aria@mail.com',	'$2b$10$OZ2q1ay2nOqi9gtD0yDw7e/GnUX1lKpyzfa6w7.JVHMQ52HNVD3e2');
 
 DROP TABLE IF EXISTS `Favoris`;
 CREATE TABLE `Favoris` (
@@ -30,11 +36,10 @@ CREATE TABLE `Favoris` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 INSERT INTO `Favoris` (`id_etudiant`, `salle`) VALUES
-(1,	503),
-(1,	505),
-(1,	506),
-(2,	501),
-(3,	500),
-(3,	502);
+(6,	8),
+(6,	10),
+(6,	505),
+(18,	505);
 
--- 2024-04-03 09:54:12
+-- 2024-04-09 11:00:58
+
