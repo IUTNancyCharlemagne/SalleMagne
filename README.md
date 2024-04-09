@@ -30,6 +30,10 @@ mobile (Flutter). Les deux facettes s’appuieront sur un backend commun.
 
 ---
 
+## Lien en production sur docketu
+
+- https://docketu.iutnc.univ-lorraine.fr:32498/
+
 ## ⚙️ Backend
 
 ### 📕 Description
@@ -44,6 +48,8 @@ plannings, et de faire la reconnaissance des numéros de salles sur les photos.
 - MariaDB
 - Docker
 - Adminer
+
+---
 
 ## ✨ Frontend
 
@@ -63,6 +69,8 @@ directement.
 - Tesseract.js
 - FullCanlendar.js
 - Leaflet
+
+---
 
 ## Mobile
 
@@ -85,6 +93,8 @@ cours à venir.
 ---
 
 ## 🚀 Installation et Déploiement
+
+### Application Web
 
 - Cloner le dépôt
 ````shell
@@ -158,4 +168,21 @@ server {
 - Lancer les conteneurs Docker
 ````shell
 docker compose up
+````
+
+## 📱 Application mobile
+
+## Dépendances
+
+- Flutter : https://flutter.dev/docs/get-started/install
+- Dart : https://dart.dev/get-dart
+
+````shell
+cd salle_magne
+````
+````shell
+flutter pub get
+````
+````shell
+flutter run
 ````
