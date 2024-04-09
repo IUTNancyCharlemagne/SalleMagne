@@ -6,10 +6,9 @@ networks:
 services:
 
   web:
-    image: 'node:alpine'
-    command: ["node", "./server/index.mjs"]
-    volumes:
-      - ./web:/app
+    build:
+      dockerfile: docker/web
+    command: ["node", "/app/.output/server/index.mjs"]
     working_dir: /app
     networks:
       - salle.net
